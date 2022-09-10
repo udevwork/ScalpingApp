@@ -1,0 +1,20 @@
+PODS:
+  - Starscream (4.0.4)
+  - SwiftyUserDefaults (5.3.0)
+
+DEPENDENCIES:
+  - Starscream
+  - SwiftyUserDefaults
+
+SPEC REPOS:
+  trunk:
+    - Starscream
+    - SwiftyUserDefaults
+
+SPEC CHECKSUMS:
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
+  SwiftyUserDefaults: 63f80248cf5bfb3458825d9a78f2eb7e1293a040
+
+PODFILE CHECKSUM: 185a329e48231ef919a8004d442fd6ec6fc0be69
+
+COCOAPODS: 1.11.2
