@@ -4,6 +4,7 @@ import SwiftyUserDefaults
 public class User: ObservableObject {
     
     public static var shared: User = User()
+    
     @Published var balance: Double = 0.0
     @Published var publicKey: String = ""
     @Published var secretKey: String = ""

@@ -11,6 +11,7 @@ class SettingsViewModel: ObservableObject  {
         Defaults.username = self.username
         Defaults.apiKey = self.api
         Defaults.secretKey = self.secret
+        Web.shared.setApiKeys(publicKey: self.api, secretKey: self.secret)
     }
     
 }

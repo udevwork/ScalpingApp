@@ -11,7 +11,7 @@ import SwiftUI
 struct Main: App {
     
     init() {
-        Web.shared.setApiKeys(publicKey: "RXT3vk3FJAV9xRt0gws2K7EVFFh1osthrybAMi2MO3GvKm8VUSAblTsdFRORqrsj", secretKey: "zLs7EKVerShwbJXUsHciCErQ3XSlL0UBsLTjwlIdJs5vjs5CXr0IocCCeg6sPukB")
+        Web.shared.setApiKeys(publicKey: User.shared.publicKey, secretKey: User.shared.secretKey)
     }
     
     var body: some Scene {

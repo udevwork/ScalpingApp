@@ -40,6 +40,7 @@ class ChartTerminalViewModel: ObservableObject {
         }
     }
     
+    
     public func load() {
         isChartLoading = true
         fetchCandles()
@@ -85,7 +86,7 @@ class ChartTerminalViewModel: ObservableObject {
         
         Web.shared.$stream.sink { [weak self] in
             
-            if let socketActionResult = try? decode(SocketResponce.self, from: $0) {
+            if let socketActionResult = try? decode(SocketResponse.self, from: $0) {
                 if socketActionResult.id == self?.socketID {
                     print("socketActionResult: ", socketActionResult.result as Any, " ID: ", socketActionResult.id)
                 }

@@ -2,6 +2,7 @@ import Foundation
 import Starscream
 import CryptoKit
 import Combine
+import BinanceResponce
 
 public struct ServerError: Codable {
     let code: Int
@@ -50,6 +51,14 @@ class Web: WebSocketDelegate {
         return "recvWindow=30000&timestamp=" + String(Int64((Date().timeIntervalSince1970 * 1000.0).rounded()))
     }()
     
+    public func testConnection(completion: @escaping (ServerError?)->()){
+        if let request = self.request(.fapi, .get, .futures, .v1, "ping", "") {
+            REST(request, EmptyResponse.self, completion: { _ in completion(nil) }, iferror: { error in completion(error) })
+        } else {
+            completion(ServerError(code: 0, msg: "No api keys"))
+        }
+    }
+    
     public func setApiKeys(publicKey: String, secretKey: String){
         self.publicKey = publicKey
         self.secretKey = secretKey
@@ -57,7 +66,7 @@ class Web: WebSocketDelegate {
     
     public func request(_ api: API, _ method: Method, _ base: BaseAPI, _ v: Version, _ function: String, _ data: String, useSignature: Bool = true) -> URLRequest? {
         
-        guard let secretKey = secretKey, let publicKey = publicKey else {
+        guard let secretKey = secretKey, let publicKey = publicKey, !secretKey.isEmpty, !publicKey.isEmpty else {
             print("Need to setup public and secret api keys!")
             return nil
         }
@@ -111,6 +120,7 @@ class Web: WebSocketDelegate {
                         }
                     } else {
                         print("Cannot decode data to ", T.self, " =(")
+                        iferror?(ServerError(code: 0, msg: "Cannot decode data"))
                     }
 
                 } else {

@@ -6,13 +6,25 @@ class DashboardViewModel: ObservableObject  {
     
     @Published var positions: [String:PositionRisk] = [:]
     @Published var allPositions: [PositionRisk] = []
+    @Published var error: String = ""
     private var subscribers: [AnyCancellable] = []
     public var isSceneActive = true
     
     init(){
-        fetchPosition()
-        subscribeToWebsocket()
-        fetchAccountData()
+        fetchData()
+    }
+    
+    public func fetchData(){
+        Web.shared.testConnection { [weak self] error in
+            if error == nil {
+                self?.fetchPosition()
+                self?.subscribeToWebsocket()
+                self?.fetchAccountData()
+                self?.error.removeAll()
+            } else {
+                self?.error = error?.msg ?? "Error... =("
+            }
+        }
     }
     
     private func fetchAccountData(){
@@ -41,7 +53,6 @@ class DashboardViewModel: ObservableObject  {
         Web.shared.subscribe(.futuresSocket, to: "!ticker@arr", id: 9)
         
         Web.shared.$stream.sink { [weak self] responce in
-            
             DispatchQueue.global().async {
                 guard let sSelf = self else { return }
                 if !sSelf.isSceneActive { return }
@@ -52,7 +63,6 @@ class DashboardViewModel: ObservableObject  {
                 DispatchQueue.main.sync {
                     sSelf.parsePrices(miniTicker: miniTicker)
                 }
-                
             }
             
             
@@ -80,6 +90,18 @@ struct DashboardView: View {
     
     var body: some View {
         List {
+            if model.error.isEmpty == false {
+                HStack {
+                    Text(model.error).articleFont()
+                    Spacer()
+                    Button {
+                        model.fetchData()
+                    } label: {
+                        Text("Reload").articleBoldFont()
+                    }
+
+                }
+            }
             Text(User.shared.balance.currency()).subtitleFont()
             Section(header: Text("Open positions").lightFont()) {
                 ForEach(model.openPositionList(), id: \.id) { position in
