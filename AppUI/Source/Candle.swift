@@ -20,10 +20,9 @@ public struct Candle: Decodable, Identifiable {
         self.close = try Double(values.decode(String.self))!
         self.volume = try values.decode(String.self)
         self.closeTime = try values.decode(Double.self)
-        setMaxMin()
     }
     
-    init(candle: CandleStream) {
+    public init(candle: CandleStream) {
         self.openTime = candle.data.openTime
         self.open = candle.data.open
         self.high = candle.data.high
@@ -31,10 +30,12 @@ public struct Candle: Decodable, Identifiable {
         self.close =  candle.data.close
         self.volume = ""
         self.closeTime = candle.data.closeTime
-        setMaxMin()
     }
     
-    init() {
+    /**
+     init with mock data
+     */
+    public init() {
         self.openTime = 1
         self.open = 4
         self.high = 6
@@ -42,13 +43,6 @@ public struct Candle: Decodable, Identifiable {
         self.close = 2
         self.volume = ""
         self.closeTime = 2
-        setMaxMin()
-    }
-    
-    func setMaxMin() {
-        if ChartTerminalViewModel.max < high { ChartTerminalViewModel.max = high }
-        if ChartTerminalViewModel.min == 0 { ChartTerminalViewModel.min = low }
-        if ChartTerminalViewModel.min > low { ChartTerminalViewModel.min = low }
     }
     
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-struct SocketResponce: Codable {
-    let result: [String]?
-    let id: Int
+public struct SocketResponce: Codable {
+    public let result: [String]?
+    public let id: Int
 }

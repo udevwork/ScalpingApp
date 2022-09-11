@@ -1,10 +1,10 @@
 import Foundation
 
-struct MarketMiniTicker: Codable
+public struct MarketMiniTicker: Codable
 {
-    var symbol: String
-    var price: Double
-    var priceChangePercent: Double
+    public var symbol: String
+    public var price: Double
+    public var priceChangePercent: Double
     
     enum CodingKeys: String, CodingKey {
         case symbol = "s"
@@ -12,7 +12,7 @@ struct MarketMiniTicker: Codable
         case priceChangePercent = "P"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         symbol = try container.decode(String.self, forKey: .symbol)
         price = try Double(container.decode(String.self, forKey: .price)) ?? 0

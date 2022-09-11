@@ -1,38 +1,44 @@
 import SwiftUI
 import Combine
-import SwiftyUserDefaults
+import BinanceResponce
 
-class OpenPositionsViewModel: ObservableObject  {
-    private var subscribers: [AnyCancellable] = []
+class DashboardViewModel: ObservableObject  {
     
     @Published var positions: [String:PositionRisk] = [:]
     @Published var allPositions: [PositionRisk] = []
-    @Published var lastOpendCharts: [String] = []
+    private var subscribers: [AnyCancellable] = []
     public var isSceneActive = true
-    
-    var def : DefaultsDisposable? = nil
     
     init(){
         fetchPosition()
         subscribeToWebsocket()
-        manageLastOpenedCharts()
+        fetchAccountData()
+    }
+    
+    private func fetchAccountData(){
+        if let request = Web.shared.request(.fapi, .get, .futures, .v2, "balance", Web.shared.timestamp) {
+            Web.shared.REST(request, [Balance].self) { responce in
+                if let balance = responce.first(where: { $0.asset == "USDT" })?.balance {
+                    User.shared.balance = balance
+                }
+            }
+        }
     }
     
     private func fetchPosition(){
         positions.removeAll()
-        let request = Web.shared.request(.get, .futures, .v2, "positionRisk", Web.shared.timestamp)
-        Web.shared.REST(request, [PositionRisk].self) { responce in
-            responce
-                .filter({$0.unRealizedProfit != 0})
-                .forEach { self.positions[$0.symbol] = $0 }
-            
-            self.allPositions = responce // save all
-            
+        if let request = Web.shared.request(.fapi ,.get, .futures, .v2, "positionRisk", Web.shared.timestamp) {
+            Web.shared.REST(request, [PositionRisk].self) { responce in
+                responce
+                    .filter({$0.unRealizedProfit != 0})
+                    .forEach { self.positions[$0.symbol] = $0 }
+                self.allPositions = responce // save all
+            }
         }
     }
     
     private func subscribeToWebsocket(){
-        Web.shared.subscribe(.futures, to: "!ticker@arr", id: 9)
+        Web.shared.subscribe(.futuresSocket, to: "!ticker@arr", id: 9)
         
         Web.shared.$stream.sink { [weak self] responce in
             
@@ -61,32 +67,20 @@ class OpenPositionsViewModel: ObservableObject  {
         }
     }
     
-    
-    private func manageLastOpenedCharts(){
-        self.lastOpendCharts = Defaults.lastSymbolSearch
-        self.def = Defaults.observe(\.lastSymbolSearch) { [weak self] update in
-            self?.lastOpendCharts = update.newValue ?? []
-        }
-    }
-    
-    public func lastSearchList() -> [PositionRisk]{
-        return allPositions.filter({ self.lastOpendCharts.contains($0.symbol) })
-    }
-    
     public func openPositionList() -> [PositionRisk]{
         return positions.filter({ $1.positionAmt != 0.0 }).map({ $1 })
     }
     
 }
 
-struct OpenPositionsView: View {
+struct DashboardView: View {
     
-    @StateObject var model = OpenPositionsViewModel()
+    @StateObject var model = DashboardViewModel()
     @EnvironmentObject var settings: BottomNavigationViewController
     
     var body: some View {
         List {
-            
+            Text(User.shared.balance.currency()).subtitleFont()
             Section(header: Text("Open positions").lightFont()) {
                 ForEach(model.openPositionList(), id: \.id) { position in
                     PositionListExtraItem(position: position).environmentObject(settings)
@@ -95,22 +89,16 @@ struct OpenPositionsView: View {
             
             Section(header: Text("Other").lightFont()) {
                 
-                MenuItem(iconName: "Open new chart", menuName: "Zoom_solid", destination: {
+                MenuItem(iconName: "Zoom_solid", menuName: "Open new chart", destination: {
                     SymbolBrowser(model: SymbolBrowserViewModel(positions: model.allPositions))
                         .environmentObject(settings)
                 })
-                MenuItem(iconName: "Settings", menuName: "Settings_solid", destination: {
+                
+                MenuItem(iconName: "Settings_solid", menuName: "Settings", destination: {
                     SettingsView().environmentObject(settings)
                 })
 
-            }
-            
-            Section(header: Text("Last opened charts").lightFont()) {
-                ForEach(model.lastSearchList(), id: \.id) { position in
-                    PositionListSimpleItem(position: position)
-                }
-            }
-            
+            }            
             
         }.onAppear{
             model.isSceneActive = true
@@ -124,7 +112,7 @@ struct OpenPositionsView: View {
 struct OpenPositionsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            OpenPositionsView().environmentObject(BottomNavigationViewController()).navigationTitle("Positions")
+            DashboardView().environmentObject(BottomNavigationViewController()).navigationTitle("Positions")
         }
     }
 }

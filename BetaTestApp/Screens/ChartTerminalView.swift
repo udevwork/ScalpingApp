@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import SwiftyUserDefaults
+import BinanceResponce
 
 class ChartTerminalViewModel: ObservableObject {
     
@@ -41,42 +42,8 @@ class ChartTerminalViewModel: ObservableObject {
     
     public func load() {
         isChartLoading = true
-                
-        // REST
-        let request = Web.shared.request(.get, .futures, .v1, "klines", "symbol=\(symbol.uppercased())&interval=\(timeframe)&limit=20", useSignature: false)
-        Web.shared.REST(request, [Candle].self) { responce in
-            self.candles = responce
-            self.isChartLoading = false
-        }
-        
-        //  WEBSOCKET
-        
-        let socketURL = "\(symbol.lowercased())@kline_\(timeframe)"
-        Web.shared.subscribe(.futures, to: socketURL, id: socketID)
-        
-        Web.shared.$stream.sink { [weak self] in
-            
-            if let socketActionResult = try? decode(SocketResponce.self, from: $0) {
-                if socketActionResult.id == self?.socketID {
-                    print("socketActionResult: ", socketActionResult.result as Any, " ID: ", socketActionResult.id)
-                }
-            }
-            
-            if let streamCandle = try? decode(CandleStream.self, from: $0),
-               let sSelf = self {
-                
-                
-                if sSelf.isChartLoading { return }
-
-                sSelf.parsStreamCandle(streamCandle)
-                sSelf.parsPrice(streamCandle)
-                if let position = sSelf.position, position.positionAmt != 0 {
-                    sSelf.pnl = Finance.culcPNL(positionSide: position.positionSide, entryPrice: position.entryPrice, markPrice: sSelf.price, positionAmt: position.positionAmt)
-                }
-            }
-        
-            
-        }.store(in: &subscribers)
+        fetchCandles()
+        subscribeToWebscoket()
     }
     
     public func unload(){
@@ -100,18 +67,52 @@ class ChartTerminalViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [weak self] in
             self?.load()
         })
-       
+    }
+    
+    private func fetchCandles(){
+        if let request = Web.shared.request(.fapi ,.get, .futures, .v1, "klines", "symbol=\(symbol.uppercased())&interval=\(timeframe)&limit=20", useSignature: false) {
+            Web.shared.REST(request, [Candle].self) { responce in
+                responce.forEach { self.setMaxMin(candle: $0) }
+                self.candles = responce
+                self.isChartLoading = false
+            }
+        }
+    }
+    
+    private func subscribeToWebscoket(){
+        let socketURL = "\(symbol.lowercased())@kline_\(timeframe)"
+        Web.shared.subscribe(.futuresSocket, to: socketURL, id: socketID)
+        
+        Web.shared.$stream.sink { [weak self] in
+            
+            if let socketActionResult = try? decode(SocketResponce.self, from: $0) {
+                if socketActionResult.id == self?.socketID {
+                    print("socketActionResult: ", socketActionResult.result as Any, " ID: ", socketActionResult.id)
+                }
+            }
+            
+            if let streamCandle = try? decode(CandleStream.self, from: $0),
+               let sSelf = self {
+                if sSelf.isChartLoading { return }
+                sSelf.parsStreamCandle(streamCandle)
+                sSelf.parsPrice(streamCandle)
+                if let position = sSelf.position, position.positionAmt != 0 {
+                    sSelf.pnl = Finance.culcPNL(from: position)
+                }
+            }
+        }.store(in: &subscribers)
     }
     
     private func parsStreamCandle(_ streamCandle: CandleStream) {
-        
-        if candles.last!.openTime == streamCandle.data.openTime {
+        let candle = streamCandle.candle()
+        self.setMaxMin(candle: candle)
+        if candles.last!.openTime == candle.openTime {
             lastRecivedStreamCandle = streamCandle
-            candles[candles.count-1] = Candle(candle: streamCandle)
+            candles[candles.count-1] = candle
         } else {
             if let last = lastRecivedStreamCandle, last.data.isClosed {
                 candles.removeFirst()
-                candles.append(Candle(candle: streamCandle))
+                candles.append(candle)
             }
         }
     }
@@ -121,6 +122,12 @@ class ChartTerminalViewModel: ObservableObject {
     }
     
 
+    func setMaxMin(candle: Candle) {
+        if ChartTerminalViewModel.max < candle.high { ChartTerminalViewModel.max = candle.high }
+        if ChartTerminalViewModel.min == 0 { ChartTerminalViewModel.min = candle.low }
+        if ChartTerminalViewModel.min > candle.low { ChartTerminalViewModel.min = candle.low }
+    }
+    
 }
 
 struct ChartTerminalView: View {
@@ -148,7 +155,12 @@ struct ChartTerminalView: View {
                 }
                 Section(header: Text("Chart \(timeframe)")) {
                     Text(model.price.currency())
-                    ChartView(candles: model.candles, position: model.position)
+                    ZStack {
+                        ChartView(candles: model.candles, position: model.position)
+                        if model.candles.isEmpty {
+                            ProgressView()
+                        }
+                    }
                     TimeFramePicker(selection: $timeframe)
                         .onChange(of: timeframe, perform: { newValue in
                         model.reload(newTF: newValue)

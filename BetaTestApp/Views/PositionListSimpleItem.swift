@@ -1,11 +1,5 @@
-//
-//  PositionListItem.swift
-//  BetaTestApp
-//
-//  Created by Denis Kotelnikov on 02.09.2022.
-//
-
 import SwiftUI
+import BinanceResponce
 
 struct PositionListSimpleItem: View {
     var position: PositionRisk

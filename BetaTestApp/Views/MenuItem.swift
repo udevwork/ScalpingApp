@@ -1,14 +1,6 @@
-//
-//  MenuItem.swift
-//  BetaTestApp
-//
-//  Created by Denis Kotelnikov on 10.09.2022.
-//
-
 import SwiftUI
 
 struct MenuItem<Destination>: View where Destination: View  {
-    
     let iconName: String
     let menuName: String
     @ViewBuilder var destination: () -> Destination
@@ -16,9 +8,9 @@ struct MenuItem<Destination>: View where Destination: View  {
     var body: some View {
         NavigationLink(destination: destination) {
             Label {
-                Text("Open new chart").articleBoldFont()
+                Text(menuName).articleBoldFont()
             } icon: {
-                Icon(iconName: "Zoom_solid")
+                Icon(iconName: iconName)
             }
         }
     }

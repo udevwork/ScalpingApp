@@ -27,6 +27,14 @@ class Web: WebSocketDelegate {
     public enum BaseAPI: String {
         case spot = "https://api.binance.com"
         case futures = "https://fapi.binance.com"
+        case spotSocket = "wss://stream.binance.com:9443/ws/"
+        case futuresSocket = "wss://fstream.binance.com/ws/"
+    }
+    
+    public enum API: String {
+        case api = "/api"
+        case fapi = "/fapi"
+        case dapi = "/dapi"
     }
     
     public enum Version: String {
@@ -35,20 +43,30 @@ class Web: WebSocketDelegate {
         case v3 = "/v3/"
     }
     
-    private var publicKey: String { "RXT3vk3FJAV9xRt0gws2K7EVFFh1osthrybAMi2MO3GvKm8VUSAblTsdFRORqrsj" }
-    private var secretKey: String { "zLs7EKVerShwbJXUsHciCErQ3XSlL0UBsLTjwlIdJs5vjs5CXr0IocCCeg6sPukB" }
+    private var publicKey: String?
+    private var secretKey: String?
     
     public var timestamp = {
         return "recvWindow=30000&timestamp=" + String(Int64((Date().timeIntervalSince1970 * 1000.0).rounded()))
     }()
     
-    public func request(_ method: Method, _ base: BaseAPI, _ v: Version, _ function: String, _ data: String, useSignature: Bool = true) -> URLRequest {
+    public func setApiKeys(publicKey: String, secretKey: String){
+        self.publicKey = publicKey
+        self.secretKey = secretKey
+    }
+    
+    public func request(_ api: API, _ method: Method, _ base: BaseAPI, _ v: Version, _ function: String, _ data: String, useSignature: Bool = true) -> URLRequest? {
+        
+        guard let secretKey = secretKey, let publicKey = publicKey else {
+            print("Need to setup public and secret api keys!")
+            return nil
+        }
+        
         let key = SymmetricKey(data: secretKey.data(using: .utf8)!)
         let signature = HMAC<SHA256>.authenticationCode(for: data.data(using: .utf8)!, using: key)
         let stringedSigrnature = Data(signature).map { String(format: "%02hhx", $0) }.joined()
         let query = "?" + data + (useSignature ? ("&signature=" + stringedSigrnature) : "");
-        let api = base == .futures ? "/fapi" : "/api"
-        let url = URL(string: base.rawValue + api + v.rawValue + function + query)!
+        let url = URL(string: base.rawValue + api.rawValue + v.rawValue + function + query)!
         print("Create request URL: ", url.absoluteString)
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
@@ -78,7 +96,7 @@ class Web: WebSocketDelegate {
                     print("------- Respone for \(String(describing: req.url?.absoluteURL)):", "\nData: ", data, "\nString: ", dataAsString,"\n----------")
                     
                     do {
-                        let error = try JSONDecoder().decode(ServerError.self, from: data)
+                        let error = try decode(ServerError.self, from: data)
                         print("Error \(String(describing: req.url?.absoluteString)) :  ", error.msg)
                         if error.msg.isEmpty == false {
                             iferror?(error)
@@ -87,10 +105,12 @@ class Web: WebSocketDelegate {
                         
                     }
                     
-                    if let decoded = try? JSONDecoder().decode(T.self, from: data) {
+                    if let decoded = try? decode(T.self, from: data) {
                         DispatchQueue.main.async {
                             completion(decoded)
                         }
+                    } else {
+                        print("Cannot decode data to ", T.self, " =(")
                     }
 
                 } else {
@@ -102,16 +122,10 @@ class Web: WebSocketDelegate {
         }
     }
     
-    
-    public enum BaseSocketAPI: String {
-        case spot = "wss://stream.binance.com:9443/ws/"
-        case futures = "wss://fstream.binance.com/ws/"
-    }
-    
     //btcusdt@kline_1m
     //btcusdt@depth5
     //wss://stream.binance.com:9443/ws/
-    public func subscribe( _ api: BaseSocketAPI, to stream: String, id: Int){
+    public func subscribe( _ api: BaseAPI, to stream: String, id: Int){
         if socket == nil {
             print("Create new stream connection with: ", stream, " ID: ", id)
             var request = URLRequest(url: URL(string: api.rawValue + stream)!)
@@ -121,21 +135,20 @@ class Web: WebSocketDelegate {
             socket?.connect()
         } else {
             print("Subscribe to stream with: ", stream, " ID: ", id)
-            let data =
-"""
-    { "method": "SUBSCRIBE", "params": [ "\(stream)" ], "id": \(id) }
-"""
-            socket?.write(string: data)
+            let action = SocetAction(method: "SUBSCRIBE", params: [stream], id: id)
+            if let encodedAction = try? encode(from: action) {
+                socket?.write(string: encodedAction)
+            }
+            
         }
     }
     
     public func unsubscribe(from stream: String, id: Int){
         print("Unsubscribe to stream with: ", stream, " ID: ", id)
-        let data =
-"""
-{ "method": "UNSUBSCRIBE", "params": [ "\(stream)" ], "id": \(id) }
-"""
-        socket?.write(string: data)
+        let action = SocetAction(method: "UNSUBSCRIBE", params: [stream], id: id)
+        if let encodedAction = try? encode(from: action) {
+            socket?.write(string: encodedAction)
+        }
     }
     
     
@@ -177,6 +190,20 @@ class Web: WebSocketDelegate {
                 //isConnected = false
         }
     }
-    
-    
+}
+
+struct SocetAction: Codable {
+    var method: String
+    var params: [String]
+    var id: Int
+}
+
+struct RequestTemplate {
+    var api: Web.API
+    var method: Web.Method
+    var base: Web.BaseAPI
+    var v: Web.Version
+    var function: String
+    var data: String
+    var useSignature: Bool
 }

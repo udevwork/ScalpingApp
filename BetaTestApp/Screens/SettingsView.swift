@@ -1,12 +1,4 @@
-//
-//  SettingsView.swift
-//  BetaTestApp
-//
-//  Created by Denis Kotelnikov on 03.09.2022.
-//
-
 import SwiftUI
-
 import SwiftyUserDefaults
 
 class SettingsViewModel: ObservableObject  {
@@ -30,6 +22,7 @@ struct SettingsView: View {
     @EnvironmentObject var settings: BottomNavigationViewController
 
     @State private var showingAlert = false
+    @State private var showingClearDBAlert = false
     
     var body: some View {
         List {
@@ -40,6 +33,15 @@ struct SettingsView: View {
             Section(header: Text("Connect you binance account")) {
                 TextField("API", text: $model.api)
                 TextField("Secret", text: $model.secret)
+            }
+            
+            Section(header: Text("Other")) {
+                Button("Clear DB") {
+                    showingClearDBAlert.toggle()
+                }.alert("Delete Database?", isPresented: $showingClearDBAlert) {
+                    Button("Delete", role: .destructive) { Defaults.removeAll() }
+                    Button("Close", role: .cancel) { }
+                }
             }
             
             Button {

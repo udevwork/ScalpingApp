@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
-import BinanceResponce
 
 @main
 struct Main: App {
+    
+    init() {
+        Web.shared.setApiKeys(publicKey: "RXT3vk3FJAV9xRt0gws2K7EVFFh1osthrybAMi2MO3GvKm8VUSAblTsdFRORqrsj", secretKey: "zLs7EKVerShwbJXUsHciCErQ3XSlL0UBsLTjwlIdJs5vjs5CXr0IocCCeg6sPukB")
+    }
+    
     var body: some Scene {
         WindowGroup {
             AppView()
@@ -22,14 +26,13 @@ struct AppView: View {
     @StateObject var navController = BottomNavigationViewController()
     
     init() {
-        let sdf = TestModel().test
          UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Nunito-ExtraBold", size: 25)!]
      }
     
     var body: some View {
         VStack(alignment: .center, spacing: 5) {
             NavigationStack {
-                OpenPositionsView().environmentObject(navController)
+                DashboardView().environmentObject(navController)
             }
             .background(Color.red)
             .cornerRadius(30)

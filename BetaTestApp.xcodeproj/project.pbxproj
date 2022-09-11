@@ -30,19 +30,14 @@
 		926CE6E828CB13F500E417DF /* Nunito-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 926CE6DA28CB13F500E417DF /* Nunito-LightItalic.ttf */; };
 		926CE6EA28CB146700E417DF /* TextModificators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CE6E928CB146700E417DF /* TextModificators.swift */; };
 		926CE6ED28CB21EA00E417DF /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CE6EC28CB21EA00E417DF /* Icon.swift */; };
+		927D2B0228CDD3720090F30D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D2B0128CDD3720090F30D /* User.swift */; };
 		9280933F28C0F78400BC75B7 /* Finance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280933E28C0F78400BC75B7 /* Finance.swift */; };
 		9280934228C0FD1800BC75B7 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280934128C0FD1800BC75B7 /* Database.swift */; };
 		9280934428C1018700BC75B7 /* SymbolBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280934328C1018700BC75B7 /* SymbolBrowser.swift */; };
 		9280934728C1D9A800BC75B7 /* PositionListSimpleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280934628C1D9A800BC75B7 /* PositionListSimpleItem.swift */; };
 		928CA64028C31E180044473B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928CA63F28C31E170044473B /* SettingsView.swift */; };
-		92C7ADAC28B52EC5009727A7 /* OpenPositionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7ADAB28B52EC5009727A7 /* OpenPositionsView.swift */; };
-		92C7ADB028B5EFA1009727A7 /* Candle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7ADAF28B5EFA1009727A7 /* Candle.swift */; };
-		92C7ADB228B5EFCD009727A7 /* CandleStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7ADB128B5EFCD009727A7 /* CandleStream.swift */; };
-		92C7ADB428B5EFE4009727A7 /* ListenKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7ADB328B5EFE4009727A7 /* ListenKey.swift */; };
-		92C7ADB628B5F023009727A7 /* MarketMiniTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7ADB528B5F023009727A7 /* MarketMiniTicker.swift */; };
-		92C7ADB828B5F035009727A7 /* PositionRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7ADB728B5F035009727A7 /* PositionRisk.swift */; };
+		92C7ADAC28B52EC5009727A7 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7ADAB28B52EC5009727A7 /* DashboardView.swift */; };
 		92E0B72028B22CF500AB4C77 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E0B71F28B22CF500AB4C77 /* Web.swift */; };
-		92E619DB28BF34CA002B2652 /* SocketResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E619DA28BF34CA002B2652 /* SocketResponce.swift */; };
 		92E619DD28BF390D002B2652 /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E619DC28BF390D002B2652 /* CodableHelper.swift */; };
 		92F8BBFA28CC6DB300CC4852 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBF928CC6DB300CC4852 /* ChartView.swift */; };
 		92F8BBFC28CC700100CC4852 /* TimeFramePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBFB28CC700100CC4852 /* TimeFramePicker.swift */; };
@@ -94,19 +89,14 @@
 		926CE6E928CB146700E417DF /* TextModificators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModificators.swift; sourceTree = "<group>"; };
 		926CE6EB28CB1B4200E417DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		926CE6EC28CB21EA00E417DF /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		927D2B0128CDD3720090F30D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9280933E28C0F78400BC75B7 /* Finance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finance.swift; sourceTree = "<group>"; };
 		9280934128C0FD1800BC75B7 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		9280934328C1018700BC75B7 /* SymbolBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolBrowser.swift; sourceTree = "<group>"; };
 		9280934628C1D9A800BC75B7 /* PositionListSimpleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionListSimpleItem.swift; sourceTree = "<group>"; };
 		928CA63F28C31E170044473B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		92C7ADAB28B52EC5009727A7 /* OpenPositionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenPositionsView.swift; sourceTree = "<group>"; };
-		92C7ADAF28B5EFA1009727A7 /* Candle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candle.swift; sourceTree = "<group>"; };
-		92C7ADB128B5EFCD009727A7 /* CandleStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleStream.swift; sourceTree = "<group>"; };
-		92C7ADB328B5EFE4009727A7 /* ListenKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenKey.swift; sourceTree = "<group>"; };
-		92C7ADB528B5F023009727A7 /* MarketMiniTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketMiniTicker.swift; sourceTree = "<group>"; };
-		92C7ADB728B5F035009727A7 /* PositionRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRisk.swift; sourceTree = "<group>"; };
+		92C7ADAB28B52EC5009727A7 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		92E0B71F28B22CF500AB4C77 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
-		92E619DA28BF34CA002B2652 /* SocketResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketResponce.swift; sourceTree = "<group>"; };
 		92E619DC28BF390D002B2652 /* CodableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableHelper.swift; sourceTree = "<group>"; };
 		92F8BBF928CC6DB300CC4852 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		92F8BBFB28CC700100CC4852 /* TimeFramePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFramePicker.swift; sourceTree = "<group>"; };
@@ -165,7 +155,7 @@
 				9280934528C1D99A00BC75B7 /* Views */,
 				92C7ADAD28B5EF6A009727A7 /* Screens */,
 				92C7ADB928B5F074009727A7 /* Common */,
-				92C7ADAE28B5EF84009727A7 /* WebResponce */,
+				927D2B0428CDD7EF0090F30D /* Shared */,
 				9200BF5228A6C9E200A8832A /* Assets.xcassets */,
 				9200BF5428A6C9E200A8832A /* Preview Content */,
 			);
@@ -209,6 +199,14 @@
 			path = Nunito;
 			sourceTree = "<group>";
 		};
+		927D2B0428CDD7EF0090F30D /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				927D2B0128CDD3720090F30D /* User.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		9280934528C1D99A00BC75B7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,25 +226,12 @@
 			children = (
 				9200BF4E28A6C9E000A8832A /* Main.swift */,
 				9200BF5028A6C9E000A8832A /* ChartTerminalView.swift */,
-				92C7ADAB28B52EC5009727A7 /* OpenPositionsView.swift */,
+				92C7ADAB28B52EC5009727A7 /* DashboardView.swift */,
 				9280934328C1018700BC75B7 /* SymbolBrowser.swift */,
 				928CA63F28C31E170044473B /* SettingsView.swift */,
 				9237881D28C501BC00A3E454 /* BottomNavigationView.swift */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		92C7ADAE28B5EF84009727A7 /* WebResponce */ = {
-			isa = PBXGroup;
-			children = (
-				92C7ADAF28B5EFA1009727A7 /* Candle.swift */,
-				92C7ADB128B5EFCD009727A7 /* CandleStream.swift */,
-				92C7ADB328B5EFE4009727A7 /* ListenKey.swift */,
-				92C7ADB528B5F023009727A7 /* MarketMiniTicker.swift */,
-				92C7ADB728B5F035009727A7 /* PositionRisk.swift */,
-				92E619DA28BF34CA002B2652 /* SocketResponce.swift */,
-			);
-			path = WebResponce;
 			sourceTree = "<group>";
 		};
 		92C7ADB928B5F074009727A7 /* Common */ = {
@@ -400,27 +385,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92C7ADB028B5EFA1009727A7 /* Candle.swift in Sources */,
 				9280934728C1D9A800BC75B7 /* PositionListSimpleItem.swift in Sources */,
 				92E0B72028B22CF500AB4C77 /* Web.swift in Sources */,
 				9280933F28C0F78400BC75B7 /* Finance.swift in Sources */,
-				92C7ADB428B5EFE4009727A7 /* ListenKey.swift in Sources */,
 				928CA64028C31E180044473B /* SettingsView.swift in Sources */,
 				92F8BBFC28CC700100CC4852 /* TimeFramePicker.swift in Sources */,
 				9280934428C1018700BC75B7 /* SymbolBrowser.swift in Sources */,
 				926CE6EA28CB146700E417DF /* TextModificators.swift in Sources */,
-				92C7ADB628B5F023009727A7 /* MarketMiniTicker.swift in Sources */,
 				92E619DD28BF390D002B2652 /* CodableHelper.swift in Sources */,
+				927D2B0228CDD3720090F30D /* User.swift in Sources */,
 				92F8BBFE28CC786700CC4852 /* CryptoIcon.swift in Sources */,
 				9200BF5128A6C9E000A8832A /* ChartTerminalView.swift in Sources */,
-				92C7ADB828B5F035009727A7 /* PositionRisk.swift in Sources */,
 				92F8BC0228CC9C9200CC4852 /* MenuItem.swift in Sources */,
 				9200BF4F28A6C9E000A8832A /* Main.swift in Sources */,
-				92C7ADAC28B52EC5009727A7 /* OpenPositionsView.swift in Sources */,
+				92C7ADAC28B52EC5009727A7 /* DashboardView.swift in Sources */,
 				92F8BBFA28CC6DB300CC4852 /* ChartView.swift in Sources */,
-				92E619DB28BF34CA002B2652 /* SocketResponce.swift in Sources */,
 				92F8BC0028CC9C0A00CC4852 /* PositionListExtraItem.swift in Sources */,
-				92C7ADB228B5EFCD009727A7 /* CandleStream.swift in Sources */,
 				9280934228C0FD1800BC75B7 /* Database.swift in Sources */,
 				924B366128B4AA7D00DC2C74 /* Extantions.swift in Sources */,
 				926CE6ED28CB21EA00E417DF /* Icon.swift in Sources */,

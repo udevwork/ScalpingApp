@@ -1,14 +1,6 @@
-//
-//  CryptoIcon.swift
-//  BetaTestApp
-//
-//  Created by Denis Kotelnikov on 10.09.2022.
-//
-
 import SwiftUI
 
 struct CryptoIcon: View {
-    
     var symbol: String
     
     var body: some View {

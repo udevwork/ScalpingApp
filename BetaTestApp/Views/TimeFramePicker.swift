@@ -1,14 +1,6 @@
-//
-//  TimeFramePicker.swift
-//  BetaTestApp
-//
-//  Created by Denis Kotelnikov on 10.09.2022.
-//
-
 import SwiftUI
 
 struct TimeFramePicker: View {
-    
     var selection: Binding<String>
     
     var body: some View {
@@ -17,6 +9,7 @@ struct TimeFramePicker: View {
             Text("5m").tag("5m")
             Text("15m").tag("15m")
             Text("1d").tag("1d")
+            Text("1w").tag("1w")
             Text("1M").tag("1M")
         }
     }

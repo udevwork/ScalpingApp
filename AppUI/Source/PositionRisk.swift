@@ -1,27 +1,20 @@
 import Foundation
 
-struct PositionRisk: Codable, Identifiable {
+public struct PositionRisk: Codable, Identifiable {
     
-    var id = UUID().uuidString
+    public var id = UUID().uuidString
     
-    var entryPrice: Double
-    var marginType: String
-    var isolatedMargin: Double
-    var leverage: Int
-    var liquidationPrice: Double
-    var markPrice: Double
-    var maxNotionalValue: Double
-    var positionAmt: Double
-    var symbol: String
-    var unRealizedProfit: Double
-    
-    var positionSide: PositionSide {
-        get {
-            return positionAmt > 0 ? .Long : .Short
-        }
-    }
-    
-    
+    public var entryPrice: Double
+    public var marginType: String
+    public var isolatedMargin: Double
+    public var leverage: Int
+    public var liquidationPrice: Double
+    public var markPrice: Double
+    public var maxNotionalValue: Double
+    public var positionAmt: Double
+    public var symbol: String
+    public var unRealizedProfit: Double
+        
     enum CodingKeys: String, CodingKey {
         case entryPrice = "entryPrice"
         case marginType = "marginType"
@@ -33,10 +26,9 @@ struct PositionRisk: Codable, Identifiable {
         case positionAmt = "positionAmt"
         case symbol = "symbol"
         case unRealizedProfit = "unRealizedProfit"
-//        case positionSide = "positionSide"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         entryPrice = try Double(container.decode(String.self, forKey: .entryPrice)) ?? 0
         marginType = try container.decode(String.self, forKey: .marginType)
@@ -48,10 +40,12 @@ struct PositionRisk: Codable, Identifiable {
         positionAmt = try Double(container.decode(String.self, forKey: .positionAmt)) ?? 0
         symbol = try container.decode(String.self, forKey: .symbol)
         unRealizedProfit = try Double(container.decode(String.self, forKey: .unRealizedProfit)) ?? 0
- //       positionSide = try container.decode(String.self, forKey: .positionSide)
     }
     
-    init() {
+    /**
+     init with mock data
+     */
+    public init() {
         entryPrice = 10400.0
         marginType = "isolated"
         isolatedMargin = 100.0

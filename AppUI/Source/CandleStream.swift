@@ -1,16 +1,16 @@
 import Foundation
-struct CandleStream: Codable {
+public struct CandleStream: Codable {
     
-    var data: CandleStream.Data
+    public var data: CandleStream.Data
     
-    struct Data: Codable  {
-        var openTime: Double
-        var closeTime: Double
-        var open: Double
-        var close: Double
-        var high: Double
-        var low: Double
-        var isClosed: Bool
+    public struct Data: Codable  {
+        public var openTime: Double
+        public var closeTime: Double
+        public var open: Double
+        public var close: Double
+        public var high: Double
+        public var low: Double
+        public var isClosed: Bool
         
         enum CodingKeys: String, CodingKey {
             case openTime = "t"
@@ -22,7 +22,7 @@ struct CandleStream: Codable {
             case isClosed = "x"
         }
         
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             openTime = try container.decode(Double.self, forKey: .openTime)
             closeTime = try container.decode(Double.self, forKey: .closeTime)
@@ -37,6 +37,10 @@ struct CandleStream: Codable {
     
     enum CodingKeys: String, CodingKey {
         case data = "k"
+    }
+    
+    public func candle() -> Candle {
+       return Candle(candle: self)
     }
     
 }

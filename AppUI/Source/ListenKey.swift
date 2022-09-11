@@ -1,5 +1,5 @@
 import Foundation
 
-struct ListenKey: Codable {
-    var listenKey: String
+public struct ListenKey: Codable {
+    public var listenKey: String
 }

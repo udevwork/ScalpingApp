@@ -1,15 +1,8 @@
-//
-//  PositionListExtraItem.swift
-//  BetaTestApp
-//
-//  Created by Denis Kotelnikov on 10.09.2022.
-//
-
 import SwiftUI
+import BinanceResponce
 
 struct PositionListExtraItem: View {
     @EnvironmentObject var settings: BottomNavigationViewController
-
     var position: PositionRisk
     
     var body: some View {
