@@ -28,7 +28,7 @@ class DashboardViewModel: ObservableObject  {
     }
     
     private func fetchAccountData(){
-        if let request = Web.shared.request(.fapi, .get, .futures, .v2, "balance", Web.shared.timestamp) {
+        if let request = Web.shared.request(.fapi, .get, .futures, .v2, "balance", nil) {
             Web.shared.REST(request, [Balance].self) { responce in
                 if let balance = responce.first(where: { $0.asset == "USDT" })?.balance {
                     User.shared.balance = balance
@@ -39,7 +39,7 @@ class DashboardViewModel: ObservableObject  {
     
     private func fetchPosition(){
         positions.removeAll()
-        if let request = Web.shared.request(.fapi ,.get, .futures, .v2, "positionRisk", Web.shared.timestamp) {
+        if let request = Web.shared.request(.fapi ,.get, .futures, .v2, "positionRisk", nil) {
             Web.shared.REST(request, [PositionRisk].self) { responce in
                 responce
                     .filter({$0.unRealizedProfit != 0})
