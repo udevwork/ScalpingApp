@@ -23,26 +23,17 @@ struct Main: App {
 
 struct AppView: View {
     
-    @StateObject var navController = BottomNavigationViewController()
     
     init() {
          UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Nunito-ExtraBold", size: 25)!]
      }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 5) {
             NavigationStack {
-                DashboardView().environmentObject(navController)
+                DashboardView()
             }
-            .background(Color.red)
             .cornerRadius(30)
             .padding(EdgeInsets(top: -60, leading: 0, bottom: 0, trailing: 0))
-            
-            BottomNavigationView()
-                .offset(CGSize(width: 0, height: 10))
-                .environmentObject(navController)
-            
-        }.background(Color.black)
     }
 }
 

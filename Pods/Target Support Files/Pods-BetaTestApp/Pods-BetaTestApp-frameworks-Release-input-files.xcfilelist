@@ -1,3 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-BetaTestApp/Pods-BetaTestApp-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AlertToast/AlertToast.framework
 ${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework

@@ -2,13 +2,11 @@ import SwiftUI
 import BinanceResponce
 
 struct PositionListExtraItem: View {
-    @EnvironmentObject var settings: BottomNavigationViewController
     var position: PositionRisk
     
     var body: some View {
         NavigationLink {
             ChartTerminalView(model: ChartTerminalViewModel(symbol: position.symbol, position: position))
-                .environmentObject(settings)
         } label: {
             
             VStack(alignment: .leading) {
@@ -35,7 +33,7 @@ struct PositionListExtraItem_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             List {
-                PositionListExtraItem(position: PositionRisk()).environmentObject(BottomNavigationViewController())
+                PositionListExtraItem(position: PositionRisk())
             }
         }
     }

@@ -41,30 +41,23 @@ class SymbolBrowserViewModel: ObservableObject  {
 struct SymbolBrowser: View {
     
     @StateObject var model: SymbolBrowserViewModel
-    @EnvironmentObject var settings: BottomNavigationViewController
     
     var body: some View {
         List() {
             if model.searchText.isEmpty == false {
                 ForEach(model.searchList()) {
                     PositionListSimpleItem(position: $0)
-                        .environmentObject(settings)
                 }
             } else {
                 Section("Last search") {
                     ForEach(model.lastSearchList()) {
                         PositionListSimpleItem(position: $0)
-                            .environmentObject(settings)
                     }
                 }
             }
          
         }.searchable(text: $model.searchText)
             .navigationTitle("Open chart")
-            .onAppear(perform: {
-                settings.set(screen: .Connection)
-            })
-        
     }
 }
 
@@ -74,7 +67,6 @@ struct SymbolBrowser_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             SymbolBrowser(model: SymbolBrowserViewModel(positions: [PositionRisk(),PositionRisk(),PositionRisk(),PositionRisk(),PositionRisk(),PositionRisk()]))
-                .environmentObject(BottomNavigationViewController())
         }
     }
 }

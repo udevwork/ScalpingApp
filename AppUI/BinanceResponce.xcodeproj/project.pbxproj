@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		923BEDD828D5FF03001DD0CA /* NewOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923BEDD728D5FF03001DD0CA /* NewOrder.swift */; };
+		923BEDDA28D606A4001DD0CA /* PositionUpdateStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923BEDD928D606A4001DD0CA /* PositionUpdateStream.swift */; };
 		927D2B0028CDC1820090F30D /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D2AFF28CDC1820090F30D /* Balance.swift */; };
 		927D2B0628CE169B0090F30D /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D2B0528CE169B0090F30D /* EmptyResponse.swift */; };
 		92F8BC4928CCBE0C00CC4852 /* PositionRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC4328CCBE0B00CC4852 /* PositionRisk.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		923BEDD728D5FF03001DD0CA /* NewOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrder.swift; sourceTree = "<group>"; };
+		923BEDD928D606A4001DD0CA /* PositionUpdateStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionUpdateStream.swift; sourceTree = "<group>"; };
 		927D2AFF28CDC1820090F30D /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		927D2B0528CE169B0090F30D /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		92F8BC2228CCA3DB00CC4852 /* BinanceResponce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BinanceResponce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +73,8 @@
 				92F8BC4828CCBE0C00CC4852 /* SocketResponse.swift */,
 				927D2AFF28CDC1820090F30D /* Balance.swift */,
 				927D2B0528CE169B0090F30D /* EmptyResponse.swift */,
+				923BEDD728D5FF03001DD0CA /* NewOrder.swift */,
+				923BEDD928D606A4001DD0CA /* PositionUpdateStream.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -153,6 +159,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				92F8BC4B28CCBE0C00CC4852 /* ListenKey.swift in Sources */,
+				923BEDDA28D606A4001DD0CA /* PositionUpdateStream.swift in Sources */,
+				923BEDD828D5FF03001DD0CA /* NewOrder.swift in Sources */,
 				92F8BC4A28CCBE0C00CC4852 /* MarketMiniTicker.swift in Sources */,
 				927D2B0628CE169B0090F30D /* EmptyResponse.swift in Sources */,
 				92F8BC4C28CCBE0C00CC4852 /* Candle.swift in Sources */,

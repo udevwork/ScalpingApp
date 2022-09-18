@@ -20,7 +20,6 @@ class SettingsViewModel: ObservableObject  {
 struct SettingsView: View {
     
     @StateObject var model = SettingsViewModel()
-    @EnvironmentObject var settings: BottomNavigationViewController
 
     @State private var showingAlert = false
     @State private var showingClearDBAlert = false
@@ -61,7 +60,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SettingsView().environmentObject(BottomNavigationViewController())
+            SettingsView()
         }
     }
 }

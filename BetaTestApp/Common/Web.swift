@@ -26,11 +26,19 @@ class Web: WebSocketDelegate {
     }
     
     public let scheme = "https"
+    
+    private let testnet: Bool = true
+    
+//    public enum BaseAPI: String {
+//        case spot = "api.binance.com"
+//        case futures = "fapi.binance.com"
+//        case spotSocket = "wss://stream.binance.com:9443/ws/"
+//        case futuresSocket = "wss://fstream.binance.com/ws/"
+//    }
+    
     public enum BaseAPI: String {
-        case spot = "api.binance.com"
-        case futures = "fapi.binance.com"
-        case spotSocket = "wss://stream.binance.com:9443/ws/"
-        case futuresSocket = "wss://fstream.binance.com/ws/"
+        case futures = "testnet.binancefuture.com"
+        case futuresSocket = "wss://stream.binancefuture.com/ws/"
     }
     
     public enum API: String {
@@ -137,7 +145,7 @@ class Web: WebSocketDelegate {
                         let error = try decode(ServerError.self, from: data)
                         print("Error \(String(describing: req.url?.absoluteString)) :  ", error.msg)
                         if error.msg.isEmpty == false {
-                            DispatchQueue.main.sync {
+                            DispatchQueue.main.async {
                                 iferror?(error)
                             }
                         }
@@ -146,12 +154,12 @@ class Web: WebSocketDelegate {
                     }
                     
                     if let decoded = try? decode(T.self, from: data) {
-                        DispatchQueue.main.sync {
+                        DispatchQueue.main.async {
                             completion(decoded)
                         }
                     } else {
                         print("Cannot decode data to ", T.self, " =(")
-                        DispatchQueue.main.sync {
+                        DispatchQueue.main.async {
                             iferror?(ServerError(code: 0, msg: "Cannot decode data"))
                         }
                     }
@@ -204,7 +212,7 @@ class Web: WebSocketDelegate {
                 //isConnected = false
                 print("websocket is disconnected: \(reason) with code: \(code)")
             case .text(let string):
-                //  print("Received text: \(string)")
+              //    print("Received text: \(string)")
                 
                 if let data = string.data(using: .utf8) {
                     self.stream = data

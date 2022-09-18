@@ -12,7 +12,6 @@
 		9200BF5128A6C9E000A8832A /* ChartTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9200BF5028A6C9E000A8832A /* ChartTerminalView.swift */; };
 		9200BF5328A6C9E200A8832A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9200BF5228A6C9E200A8832A /* Assets.xcassets */; };
 		9200BF5628A6C9E200A8832A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9200BF5528A6C9E200A8832A /* Preview Assets.xcassets */; };
-		9237881E28C501BC00A3E454 /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237881D28C501BC00A3E454 /* BottomNavigationView.swift */; };
 		924B366128B4AA7D00DC2C74 /* Extantions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B366028B4AA7D00DC2C74 /* Extantions.swift */; };
 		926CE6DB28CB13F500E417DF /* Nunito-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 926CE6CD28CB13F500E417DF /* Nunito-ExtraBoldItalic.ttf */; };
 		926CE6DC28CB13F500E417DF /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 926CE6CE28CB13F500E417DF /* Nunito-ExtraBold.ttf */; };
@@ -39,6 +38,7 @@
 		92C7ADAC28B52EC5009727A7 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7ADAB28B52EC5009727A7 /* DashboardView.swift */; };
 		92E0B72028B22CF500AB4C77 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E0B71F28B22CF500AB4C77 /* Web.swift */; };
 		92E619DD28BF390D002B2652 /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E619DC28BF390D002B2652 /* CodableHelper.swift */; };
+		92F7C77128D7215D00BACA0F /* DataLodingStageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F7C77028D7215D00BACA0F /* DataLodingStageManager.swift */; };
 		92F8BBFA28CC6DB300CC4852 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBF928CC6DB300CC4852 /* ChartView.swift */; };
 		92F8BBFC28CC700100CC4852 /* TimeFramePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBFB28CC700100CC4852 /* TimeFramePicker.swift */; };
 		92F8BBFE28CC786700CC4852 /* CryptoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBFD28CC786700CC4852 /* CryptoIcon.swift */; };
@@ -70,7 +70,6 @@
 		9200BF5028A6C9E000A8832A /* ChartTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTerminalView.swift; sourceTree = "<group>"; };
 		9200BF5228A6C9E200A8832A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9200BF5528A6C9E200A8832A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9237881D28C501BC00A3E454 /* BottomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
 		924B366028B4AA7D00DC2C74 /* Extantions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extantions.swift; sourceTree = "<group>"; };
 		926CE6CD28CB13F500E417DF /* Nunito-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		926CE6CE28CB13F500E417DF /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -98,6 +97,7 @@
 		92C7ADAB28B52EC5009727A7 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		92E0B71F28B22CF500AB4C77 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		92E619DC28BF390D002B2652 /* CodableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableHelper.swift; sourceTree = "<group>"; };
+		92F7C77028D7215D00BACA0F /* DataLodingStageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLodingStageManager.swift; sourceTree = "<group>"; };
 		92F8BBF928CC6DB300CC4852 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		92F8BBFB28CC700100CC4852 /* TimeFramePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFramePicker.swift; sourceTree = "<group>"; };
 		92F8BBFD28CC786700CC4852 /* CryptoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoIcon.swift; sourceTree = "<group>"; };
@@ -229,7 +229,6 @@
 				92C7ADAB28B52EC5009727A7 /* DashboardView.swift */,
 				9280934328C1018700BC75B7 /* SymbolBrowser.swift */,
 				928CA63F28C31E170044473B /* SettingsView.swift */,
-				9237881D28C501BC00A3E454 /* BottomNavigationView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -243,6 +242,7 @@
 				9280933E28C0F78400BC75B7 /* Finance.swift */,
 				9280934128C0FD1800BC75B7 /* Database.swift */,
 				926CE6E928CB146700E417DF /* TextModificators.swift */,
+				92F7C77028D7215D00BACA0F /* DataLodingStageManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -402,9 +402,9 @@
 				92F8BBFA28CC6DB300CC4852 /* ChartView.swift in Sources */,
 				92F8BC0028CC9C0A00CC4852 /* PositionListExtraItem.swift in Sources */,
 				9280934228C0FD1800BC75B7 /* Database.swift in Sources */,
+				92F7C77128D7215D00BACA0F /* DataLodingStageManager.swift in Sources */,
 				924B366128B4AA7D00DC2C74 /* Extantions.swift in Sources */,
 				926CE6ED28CB21EA00E417DF /* Icon.swift in Sources */,
-				9237881E28C501BC00A3E454 /* BottomNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

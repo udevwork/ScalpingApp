@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import AlertToast
 import SwiftyUserDefaults
 import BinanceResponce
 
@@ -8,7 +9,6 @@ class ChartTerminalViewModel: ObservableObject {
     static var min:Double = 0.0
     static var max:Double = 0.0
     
-    var isChartLoading: Bool = false
     
     var lastRecivedStreamCandle: CandleStream? = nil
     
@@ -21,9 +21,14 @@ class ChartTerminalViewModel: ObservableObject {
     private var subscribers: [AnyCancellable] = []
     
     public var symbol: String
-    public var position: PositionRisk?
+    @Published public var position: PositionRisk?
     
     var timeframe = "1m"
+    
+    var isChartLoading: Bool = false
+    @Published public var stageManager = DataLodingStageManager(stageCount: 2)
+    @Published public var orderProcessing: Bool = false
+    @Published public var positionUpdating: Bool = false
     
     init(symbol: String, position: PositionRisk?) {
         self.symbol = symbol
@@ -43,6 +48,8 @@ class ChartTerminalViewModel: ObservableObject {
     
     public func load() {
         isChartLoading = true
+        stageManager.start()
+        objectWillChange.send()
         fetchCandles()
         subscribeToWebscoket()
     }
@@ -71,12 +78,26 @@ class ChartTerminalViewModel: ObservableObject {
     }
     
     private func fetchCandles(){
-
         if let request = Web.shared.request(.fapi ,.get, .futures, .v1, "klines", [.init(name: "symbol", value: symbol.uppercased()), .init(name: "interval", value: timeframe),.init(name: "limit", value: "20")], useSignature: false) {
-            Web.shared.REST(request, [Candle].self) { responce in
-                responce.forEach { self.setMaxMin(candle: $0) }
-                self.candles = responce
-                self.isChartLoading = false
+            Web.shared.REST(request, [Candle].self) { [weak self] responce in
+                responce.forEach { self?.setMaxMin(candle: $0) }
+                self?.candles = responce
+                self?.isChartLoading = false
+                self?.stageManager.finishStep()
+            }
+        }
+    }
+    
+    // Refetch if some updates
+    private func fetchPosition(){
+        positionUpdating = true
+        if let request = Web.shared.request(.fapi ,.get, .futures, .v2, "positionRisk", nil) {
+            Web.shared.REST(request, [PositionRisk].self) { [weak self] responce in
+                let newPosition = responce.first { pos in
+                    pos.symbol == self?.symbol
+                }
+                self?.position = newPosition?.positionAmt == 0 ? nil : newPosition
+                self?.positionUpdating = false
             }
         }
     }
@@ -84,8 +105,15 @@ class ChartTerminalViewModel: ObservableObject {
     private func subscribeToWebscoket(){
         let socketURL = "\(symbol.lowercased())@kline_\(timeframe)"
         Web.shared.subscribe(.futuresSocket, to: socketURL, id: socketID)
-        
+        self.stageManager.finishStep()
         Web.shared.$stream.sink { [weak self] in
+            
+            if let update = try? decode(PositionUpdateStream.self, from: $0) {
+                if update.o.x == "FILLED" {
+                    print("FILLED")
+                    self?.fetchPosition()
+                }
+            }
             
             if let socketActionResult = try? decode(SocketResponse.self, from: $0) {
                 if socketActionResult.id == self?.socketID {
@@ -123,6 +151,42 @@ class ChartTerminalViewModel: ObservableObject {
         self.price = streamCandle.data.close
     }
     
+    public func sell(){
+   
+        orderProcessing = true
+
+        let params: [URLQueryItem] = [.init(name: "symbol", value: self.symbol),
+                                      .init(name: "side", value: "SELL"),
+                                      .init(name: "type", value: "MARKET"),
+                                      .init(name: "quantity", value: "1")]
+        
+        
+        if let request = Web.shared.request(.fapi, .post, .futures, .v1, "order", params, useTimestamp: true, useSignature: true) {
+            
+            Web.shared.REST(request, NewOrder.self) { [weak self] responce in
+                print("SELL:", responce.symbol, "Completed")
+                self?.orderProcessing = false
+            }
+        }
+    }
+    
+    public func buy(){
+
+        orderProcessing = true
+        let params: [URLQueryItem] = [.init(name: "symbol", value: self.symbol),
+                                      .init(name: "side", value: "BUY"),
+                                      .init(name: "type", value: "MARKET"),
+                                      .init(name: "quantity", value: "1")]
+        
+        
+        if let request = Web.shared.request(.fapi, .post, .futures, .v1, "order", params, useTimestamp: true, useSignature: true) {
+            
+            Web.shared.REST(request, NewOrder.self) { [weak self] responce in
+                print("BUY:", responce.symbol, "Completed")
+                self?.orderProcessing = false
+            }
+        }
+    }
 
     func setMaxMin(candle: Candle) {
         if ChartTerminalViewModel.max < candle.high { ChartTerminalViewModel.max = candle.high }
@@ -134,7 +198,6 @@ class ChartTerminalViewModel: ObservableObject {
 
 struct ChartTerminalView: View {
     
-    @EnvironmentObject var settings: BottomNavigationViewController
     @StateObject var model: ChartTerminalViewModel
     @State var timeframe = "1m"
     
@@ -142,7 +205,7 @@ struct ChartTerminalView: View {
         VStack {
             List {
                 Section {
-                    if let pos = model.position, model.pnl < 0  {
+                    if let pos = model.position, model.pnl != 0  {
                         HStack {
                             Text("PNL ")
                             Text("\(model.pnl.currency())").foregroundColor(model.pnl > 0 ? .green : .red).bold()
@@ -168,17 +231,43 @@ struct ChartTerminalView: View {
                         model.reload(newTF: newValue)
                     })
                 }
+                
+                Section(header: Text("Trade")) {
+                    HStack {
+                        Button {
+                            model.buy()
+                        } label: {
+                            Text("Buy").foregroundColor(Color("BuyColor"))
+                        }.buttonStyle(BorderedButtonStyle())
+                        
+                        Button {
+                            model.sell()
+                        } label: {
+                            Text("Sell").foregroundColor(Color("SellColor"))
+                        }.buttonStyle(BorderedButtonStyle())
+                    }
+                }
 
             }
         }.navigationTitle(model.position?.symbol ?? "")
         
         .onDisappear(perform: {
             model.unload()
+            print("fuck:UNLOAD")
         })
         .onAppear(perform: {
             model.load()
-            settings.set(screen: .Trade)
+            print("fuck:LOAD")
         })
+        .toast(isPresenting: $model.stageManager.inProgress) {
+            AlertToast(displayMode: .alert, type: .loading, title: "Setup chart")
+        }
+        .toast(isPresenting: $model.orderProcessing) {
+            AlertToast(displayMode: .alert, type: .loading, title: "Process order")
+        }
+        .toast(isPresenting: $model.positionUpdating) {
+            AlertToast(displayMode: .alert, type: .loading, title: "Updating")
+        }
     }
     
 
@@ -189,7 +278,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             ChartTerminalView(model: ChartTerminalViewModel(symbol: "BTCUSDT", position: PositionRisk()))
-                .environmentObject(BottomNavigationViewController())
                 .navigationTitle("BTCUSDT")
         }
     }
