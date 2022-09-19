@@ -30,7 +30,7 @@ struct AppView: View {
     
     var body: some View {
             NavigationStack {
-                DashboardView()
+                DashboardView().navigationTitle("Dashboard")
             }
             .cornerRadius(30)
             .padding(EdgeInsets(top: -60, leading: 0, bottom: 0, trailing: 0))

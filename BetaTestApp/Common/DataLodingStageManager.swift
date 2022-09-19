@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import Combine
 
 class DataLodingStageManager: ObservableObject {
     
-    @Published var totalStageCount: Int
-    @Published var currentStage: Int = 0
+    var totalStageCount: Int
+    var currentStage: Int = 0
     
-    @Published var completed: Bool = false
-    @Published var completedWithError: Bool = false
+    var completed: Bool = false
+    var completedWithError: Bool = false
     
     @Published var inProgress: Bool = false
     
@@ -28,12 +29,22 @@ class DataLodingStageManager: ObservableObject {
         inProgress = true
     }
     
-    public func finishStep(){
-        currentStage += 1
-        if currentStage == totalStageCount{
-            completed = true
-            inProgress = false
+    public func finishStep(name: String? = nil){
+
+        self.currentStage += 1
+        
+        if let name = name {
+            print("[Stage \(currentStage)] Finish step /", name, "/")
         }
+        
+        if self.currentStage == self.totalStageCount{
+            self.completed = true
+            self.inProgress = false
+            print("LoadingStageManager: Finished!")
+            objectWillChange.send()
+        }
+        
+        
     }
     
     public func finishWithError(){

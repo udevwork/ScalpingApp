@@ -22,6 +22,7 @@ class ChartTerminalViewModel: ObservableObject {
     
     public var symbol: String
     @Published public var position: PositionRisk?
+    @Published var positionAmount: String = "1.0"
     
     var timeframe = "1m"
     
@@ -29,6 +30,8 @@ class ChartTerminalViewModel: ObservableObject {
     @Published public var stageManager = DataLodingStageManager(stageCount: 2)
     @Published public var orderProcessing: Bool = false
     @Published public var positionUpdating: Bool = false
+    @Published public var errorEvent: Bool = false
+    @Published public var errorEventText: String = "Fail"
     
     init(symbol: String, position: PositionRisk?) {
         self.symbol = symbol
@@ -105,7 +108,7 @@ class ChartTerminalViewModel: ObservableObject {
     private func subscribeToWebscoket(){
         let socketURL = "\(symbol.lowercased())@kline_\(timeframe)"
         Web.shared.subscribe(.futuresSocket, to: socketURL, id: socketID)
-        self.stageManager.finishStep()
+        
         Web.shared.$stream.sink { [weak self] in
             
             if let update = try? decode(PositionUpdateStream.self, from: $0) {
@@ -118,6 +121,7 @@ class ChartTerminalViewModel: ObservableObject {
             if let socketActionResult = try? decode(SocketResponse.self, from: $0) {
                 if socketActionResult.id == self?.socketID {
                     print("socketActionResult: ", socketActionResult.result as Any, " ID: ", socketActionResult.id)
+                    self?.stageManager.finishStep(name: "connect to socket")
                 }
             }
             
@@ -155,39 +159,60 @@ class ChartTerminalViewModel: ObservableObject {
    
         orderProcessing = true
 
+        let quantity: String = dec((Double(positionAmount) ?? 0)/price)
+        
         let params: [URLQueryItem] = [.init(name: "symbol", value: self.symbol),
                                       .init(name: "side", value: "SELL"),
                                       .init(name: "type", value: "MARKET"),
-                                      .init(name: "quantity", value: "1")]
+                                      .init(name: "quantity", value: quantity)]
         
         
         if let request = Web.shared.request(.fapi, .post, .futures, .v1, "order", params, useTimestamp: true, useSignature: true) {
             
-            Web.shared.REST(request, NewOrder.self) { [weak self] responce in
+            Web.shared.REST(request, NewOrder.self, completion: { [weak self] responce in
                 print("SELL:", responce.symbol, "Completed")
                 self?.orderProcessing = false
-            }
+            }, iferror: { [weak self] err in
+                self?.orderProcessing = false
+                self?.errorEventText = err.msg
+                self?.errorEvent = true
+            })
         }
     }
     
     public func buy(){
 
         orderProcessing = true
+        let quantity: String = dec((Double(positionAmount) ?? 0)/price)
         let params: [URLQueryItem] = [.init(name: "symbol", value: self.symbol),
                                       .init(name: "side", value: "BUY"),
                                       .init(name: "type", value: "MARKET"),
-                                      .init(name: "quantity", value: "1")]
+                                      .init(name: "quantity", value: quantity)]
         
         
         if let request = Web.shared.request(.fapi, .post, .futures, .v1, "order", params, useTimestamp: true, useSignature: true) {
             
-            Web.shared.REST(request, NewOrder.self) { [weak self] responce in
+            Web.shared.REST(request, NewOrder.self, completion: { [weak self] responce in
                 print("BUY:", responce.symbol, "Completed")
                 self?.orderProcessing = false
-            }
+            }, iferror: { [weak self] err in
+                self?.orderProcessing = false
+                self?.errorEventText = err.msg
+                self?.errorEvent = true
+            })
         }
     }
 
+    
+    func dec(_ num: Double) -> String {
+        let num = NSDecimalNumber.init(string: "\(num)")
+        let behaviour = NSDecimalNumberHandler(roundingMode:.down, scale: 2, raiseOnExactness: false,  raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
+        let numRounded = num.rounding(accordingToBehavior: behaviour)
+        let result = "\(numRounded)"
+        
+        return result
+    }
+    
     func setMaxMin(candle: Candle) {
         if ChartTerminalViewModel.max < candle.high { ChartTerminalViewModel.max = candle.high }
         if ChartTerminalViewModel.min == 0 { ChartTerminalViewModel.min = candle.low }
@@ -200,6 +225,7 @@ struct ChartTerminalView: View {
     
     @StateObject var model: ChartTerminalViewModel
     @State var timeframe = "1m"
+    @FocusState private var amountIsFocused: Bool
     
     var body: some View {
         VStack {
@@ -213,8 +239,14 @@ struct ChartTerminalView: View {
                             Text("% ")
                             Text(Finance.calcPriceChangePercentage(currentPrice: model.price, entryPrice: pos.entryPrice) ).foregroundColor(model.pnl > 0 ? .green : .red).bold()
                         }
-                    } else {
-                        Text("No position")
+                        HStack {
+                            Text("Side ")
+                            let side = Finance.positionSide(of: pos)
+                            Text(side.rawValue).foregroundColor(side == .Long ? .green : .red).bold()
+                            Spacer()
+                            Text("amt: ")
+                            Text("\(pos.positionAmt)").bold()
+                        }
                     }
 
                 }
@@ -234,14 +266,20 @@ struct ChartTerminalView: View {
                 
                 Section(header: Text("Trade")) {
                     HStack {
+                        
+                        TextField("Amount", text: $model.positionAmount).keyboardType(UIKeyboardType.numbersAndPunctuation)
+                            .focused($amountIsFocused)
+                        
                         Button {
                             model.buy()
+                            amountIsFocused = false
                         } label: {
                             Text("Buy").foregroundColor(Color("BuyColor"))
                         }.buttonStyle(BorderedButtonStyle())
                         
                         Button {
                             model.sell()
+                            amountIsFocused = false
                         } label: {
                             Text("Sell").foregroundColor(Color("SellColor"))
                         }.buttonStyle(BorderedButtonStyle())
@@ -249,15 +287,13 @@ struct ChartTerminalView: View {
                 }
 
             }
-        }.navigationTitle(model.position?.symbol ?? "")
+        }.navigationTitle(model.symbol)
         
         .onDisappear(perform: {
             model.unload()
-            print("fuck:UNLOAD")
         })
         .onAppear(perform: {
             model.load()
-            print("fuck:LOAD")
         })
         .toast(isPresenting: $model.stageManager.inProgress) {
             AlertToast(displayMode: .alert, type: .loading, title: "Setup chart")
@@ -267,6 +303,9 @@ struct ChartTerminalView: View {
         }
         .toast(isPresenting: $model.positionUpdating) {
             AlertToast(displayMode: .alert, type: .loading, title: "Updating")
+        }
+        .toast(isPresenting: $model.errorEvent) {
+            AlertToast(displayMode: .alert, type: .error(.red), title: model.errorEventText)
         }
     }
     

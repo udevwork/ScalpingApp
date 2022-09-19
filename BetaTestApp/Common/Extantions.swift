@@ -13,8 +13,8 @@ extension Double {
     }
 }
 
-enum PositionSide {
-    case Long
-    case Short
+enum PositionSide: String {
+    case Long = "Long"
+    case Short = "Short"
 }
 

@@ -17,6 +17,7 @@ class Web: WebSocketDelegate {
     
     private var socket: WebSocket? = nil
     @Published var stream : Data = Data()
+    @Published var socketConnected : Bool = false
     
     public enum Method: String {
         case post = "POST"
@@ -109,7 +110,7 @@ class Web: WebSocketDelegate {
         }
         
         if let url = components.url {
-            print("Create request URL: ", components.string ?? "error")
+            //print("Create request URL: ", components.string ?? "error")
             var request = URLRequest(url: url)
             request.httpMethod = method.rawValue
             request.setValue(publicKey, forHTTPHeaderField: "X-MBX-APIKEY")
@@ -124,22 +125,22 @@ class Web: WebSocketDelegate {
         DispatchQueue.global(qos: .background).async {
             let session = URLSession.shared
             let task = session.dataTask(with: req) { (data, response, error) in
-                
-                if let httpResponse = response as? HTTPURLResponse {
-                    //print("X-MBX-USED-WEIGHT: ", httpResponse)
-                    
-                    if let val =  httpResponse.value(forHTTPHeaderField: "x-mbx-used-weight"),
-                       let val1m =  httpResponse.value(forHTTPHeaderField: "x-mbx-used-weight-1m") {
-                        print("Used Weight: \(val), Used Weight 1m: \(val1m)")
-                    }
-                }
+
+//                if let httpResponse = response as? HTTPURLResponse {
+//                    print("X-MBX-USED-WEIGHT: ", httpResponse)
+//
+//                    if let val =  httpResponse.value(forHTTPHeaderField: "x-mbx-used-weight"),
+//                       let val1m =  httpResponse.value(forHTTPHeaderField: "x-mbx-used-weight-1m") {
+//                        print("Used Weight: \(val), Used Weight 1m: \(val1m)")
+//                    }
+//                }
                 
                 if let error = error {
                     print("ERROR: ", error)
                     
                 } else if let data = data {
-                    let dataAsString = String(data: data, encoding: .utf8) ?? "_"
-                    print("------- Respone for \(String(describing: req.url?.absoluteURL)):", "\nData: ", data, "\nString: ", dataAsString,"\n----------")
+                    //let dataAsString = String(data: data, encoding: .utf8) ?? "_"
+                    //print("------- Respone for \(String(describing: req.url?.absoluteURL)):", "\nData: ", data, "\nString: ", dataAsString,"\n----------")
                     
                     do {
                         let error = try decode(ServerError.self, from: data)
@@ -149,6 +150,7 @@ class Web: WebSocketDelegate {
                                 iferror?(error)
                             }
                         }
+                        return
                     } catch {
                         
                     }
@@ -206,10 +208,10 @@ class Web: WebSocketDelegate {
     func didReceive(event: Starscream.WebSocketEvent, client: Starscream.WebSocket) {
         switch event {
             case .connected(let headers):
-                //isConnected = true
-                print("websocket is connected: \(headers)")
+                self.socketConnected = true
+                print("websocket is connected")
             case .disconnected(let reason, let code):
-                //isConnected = false
+                self.socketConnected = false
                 print("websocket is disconnected: \(reason) with code: \(code)")
             case .text(let string):
               //    print("Received text: \(string)")
@@ -217,8 +219,7 @@ class Web: WebSocketDelegate {
                 if let data = string.data(using: .utf8) {
                     self.stream = data
                 }
-                
-                
+
             case .binary(let data):
                 print("Received data: \(data.count)")
             case .ping(_):

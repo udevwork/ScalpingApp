@@ -10,27 +10,41 @@ class DashboardViewModel: ObservableObject  {
     @Published var error: String = ""
     private var subscribers: [AnyCancellable] = []
     public var isSceneActive = true
-    
-    @Published public var stageManager = DataLodingStageManager(stageCount: 5)
+    @Published public var isLoading: Bool = false
+
+    public var stageManager = DataLodingStageManager(stageCount: 5)
     
     init(){
         fetchData()
+        
+        stageManager.$inProgress.assign(to: &$isLoading)
+        
     }
     
     public func fetchData(){
         stageManager.start()
         Web.shared.testConnection { [weak self] error in
             if error == nil {
-                self?.stageManager.finishStep()
+                self?.stageManager.finishStep(name: "test")
                 self?.fetchPosition()
-                self?.subscribeToWebsocket()
-                self?.subscribeToUserStream()
+                self?.createSocketConnection()
                 self?.fetchAccountData()
                 self?.error.removeAll()
             } else {
                 self?.error = error?.msg ?? "Error... =("
             }
         }
+        
+        Web.shared.$socketConnected.sink { [weak self] connected in
+            if connected {
+                self?.subscribeToTickerStream()
+                self?.subscribeToUserStream()
+            }
+        }.store(in: &subscribers)
+    }
+    
+    private func createSocketConnection(){
+        Web.shared.subscribe(.futuresSocket, to: "", id: 0)
     }
     
     private func fetchAccountData(){
@@ -38,7 +52,7 @@ class DashboardViewModel: ObservableObject  {
             Web.shared.REST(request, [Balance].self) { [weak self] responce in
                 if let balance = responce.first(where: { $0.asset == "USDT" })?.balance {
                     User.shared.balance = balance
-                    self?.stageManager.finishStep()
+                    self?.stageManager.finishStep(name: "account")
                 }
             }
         }
@@ -52,17 +66,32 @@ class DashboardViewModel: ObservableObject  {
                     .filter({$0.unRealizedProfit != 0})
                     .forEach { self?.positions[$0.symbol] = $0 }
                 self?.allPositions = responce // save all
-                self?.stageManager.finishStep()
+                self?.stageManager.finishStep(name: "position")
             }
         }
     }
     
-    private func subscribeToWebsocket(){
+    private func subscribeToTickerStream(){
         Web.shared.subscribe(.futuresSocket, to: "!ticker@arr", id: 9)
         
         Web.shared.$stream.sink { [weak self] responce in
             DispatchQueue.global().async {
                 guard let sSelf = self else { return }
+                
+                if let socketActionResult = try? decode(SocketResponse.self, from: responce) {
+                    if socketActionResult.id == 9 {
+                        print("socketActionResult: ", socketActionResult.result as Any, " ID: ", socketActionResult.id)
+                        if socketActionResult.result == nil { // sucsess
+                            self?.stageManager.finishStep(name: "connect to ticker socket ")
+                        }
+                    }
+                    if socketActionResult.id == 1 {
+                        print("socketActionResult: ", socketActionResult.result as Any, " ID: ", socketActionResult.id)
+                        if socketActionResult.result == nil { // sucsess
+                            self?.stageManager.finishStep(name: "connect to account stream socket")
+                        }
+                    }
+                }
                 
                 if let update = try? decode(PositionUpdateStream.self, from: responce) {
                     if update.o.x == "FILLED" {
@@ -83,19 +112,16 @@ class DashboardViewModel: ObservableObject  {
             
             
         }.store(in: &subscribers)
-        self.stageManager.finishStep()
+        
     }
     
     private func subscribeToUserStream(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-            if let request = Web.shared.request(.fapi ,.post, .futures, .v1, "listenKey", nil, useTimestamp: false, useSignature: false) {
-                Web.shared.REST(request, ListenKey.self) { [weak self] responce in
-                    print("listenKey", responce.listenKey)
-                    Web.shared.subscribe(.futuresSocket, to: responce.listenKey, id: 1)
-                    self?.stageManager.finishStep()
-                }
+        if let request = Web.shared.request(.fapi ,.post, .futures, .v1, "listenKey", nil, useTimestamp: false, useSignature: false) {
+            Web.shared.REST(request, ListenKey.self) { [weak self] responce in
+                print("listenKey", responce.listenKey)
+                Web.shared.subscribe(.futuresSocket, to: responce.listenKey, id: 1)
             }
-        })
+        }
     }
     
     private func parsePrices(miniTicker: [MarketMiniTicker]){
@@ -123,7 +149,7 @@ struct DashboardView: View {
     
     var body: some View {
         List {
-            if model.stageManager.inProgress == false {
+            if model.isLoading == false {
                 if model.error.isEmpty == false {
                     HStack {
                         Text(model.error).articleFont()
@@ -160,7 +186,7 @@ struct DashboardView: View {
             model.isSceneActive = true
         }.onDisappear{
             model.isSceneActive = false
-        }.toast(isPresenting: $model.stageManager.inProgress) {
+        }.toast(isPresenting: $model.isLoading) {
             AlertToast(displayMode: .alert, type: .loading, title: "Setup terminal")
         }
     }
