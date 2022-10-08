@@ -13,7 +13,8 @@
 		9200BF5328A6C9E200A8832A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9200BF5228A6C9E200A8832A /* Assets.xcassets */; };
 		9200BF5628A6C9E200A8832A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9200BF5528A6C9E200A8832A /* Preview Assets.xcassets */; };
 		924B366128B4AA7D00DC2C74 /* Extantions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B366028B4AA7D00DC2C74 /* Extantions.swift */; };
-		9269C81D28F1A85400BAF494 /* Binance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9269C81C28F1A85400BAF494 /* Binance.framework */; };
+		9269C81F28F1AE5800BAF494 /* Binance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9269C81C28F1A85400BAF494 /* Binance.framework */; };
+		9269C82028F1AE5800BAF494 /* Binance.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9269C81C28F1A85400BAF494 /* Binance.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		926CE6DB28CB13F500E417DF /* Nunito-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 926CE6CD28CB13F500E417DF /* Nunito-ExtraBoldItalic.ttf */; };
 		926CE6DC28CB13F500E417DF /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 926CE6CE28CB13F500E417DF /* Nunito-ExtraBold.ttf */; };
 		926CE6DD28CB13F500E417DF /* Nunito-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 926CE6CF28CB13F500E417DF /* Nunito-ExtraLightItalic.ttf */; };
@@ -45,6 +46,20 @@
 		92F8BC0028CC9C0A00CC4852 /* PositionListExtraItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBFF28CC9C0A00CC4852 /* PositionListExtraItem.swift */; };
 		92F8BC0228CC9C9200CC4852 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC0128CC9C9200CC4852 /* MenuItem.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9269C82128F1AE5800BAF494 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9269C82028F1AE5800BAF494 /* Binance.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		66BED941BFD29D4B988DBD46 /* Pods-BetaTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetaTestApp.release.xcconfig"; path = "Target Support Files/Pods-BetaTestApp/Pods-BetaTestApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,8 +112,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9269C81D28F1A85400BAF494 /* Binance.framework in Frameworks */,
 				72320F4BEABE521494ED2422 /* Pods_BetaTestApp.framework in Frameworks */,
+				9269C81F28F1AE5800BAF494 /* Binance.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +134,7 @@
 		9200BF4228A6C9E000A8832A = {
 			isa = PBXGroup;
 			children = (
-				9200BF4D28A6C9E000A8832A /* BetaTestApp */,
+				9200BF4D28A6C9E000A8832A /* MyPNL */,
 				9200BF4C28A6C9E000A8832A /* Products */,
 				B294C6ECB0EA23E611E64124 /* Pods */,
 				44C8CD2D4D45B88A3F796675 /* Frameworks */,
@@ -134,19 +149,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9200BF4D28A6C9E000A8832A /* BetaTestApp */ = {
+		9200BF4D28A6C9E000A8832A /* MyPNL */ = {
 			isa = PBXGroup;
 			children = (
-				926CE6EB28CB1B4200E417DF /* Info.plist */,
-				926CE6CB28CB119D00E417DF /* Resourses */,
-				9280934528C1D99A00BC75B7 /* Views */,
-				92C7ADAD28B5EF6A009727A7 /* Screens */,
-				92C7ADB928B5F074009727A7 /* Common */,
-				927D2B0428CDD7EF0090F30D /* Shared */,
-				9200BF5228A6C9E200A8832A /* Assets.xcassets */,
 				9200BF5428A6C9E200A8832A /* Preview Content */,
+				926CE6CB28CB119D00E417DF /* Resourses */,
+				9269C81E28F1AD9100BAF494 /* Source */,
+				926CE6EB28CB1B4200E417DF /* Info.plist */,
+				9200BF5228A6C9E200A8832A /* Assets.xcassets */,
 			);
-			path = BetaTestApp;
+			path = MyPNL;
 			sourceTree = "<group>";
 		};
 		9200BF5428A6C9E200A8832A /* Preview Content */ = {
@@ -155,6 +167,17 @@
 				9200BF5528A6C9E200A8832A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9269C81E28F1AD9100BAF494 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				9280934528C1D99A00BC75B7 /* Views */,
+				92C7ADAD28B5EF6A009727A7 /* Screens */,
+				92C7ADB928B5F074009727A7 /* Common */,
+				927D2B0428CDD7EF0090F30D /* Shared */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		926CE6CB28CB119D00E417DF /* Resourses */ = {
@@ -254,6 +277,7 @@
 				9200BF4828A6C9E000A8832A /* Frameworks */,
 				9200BF4928A6C9E000A8832A /* Resources */,
 				3669BEBC52055DCC350A7A88 /* [CP] Embed Pods Frameworks */,
+				9269C82128F1AE5800BAF494 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -517,11 +541,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"BetaTestApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 87XM268947;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BetaTestApp/Info.plist;
+				INFOPLIST_FILE = MyPNL/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "my PNL";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -534,7 +558,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = live.BetaTestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = live.MyPNL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -553,11 +577,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"BetaTestApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 87XM268947;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BetaTestApp/Info.plist;
+				INFOPLIST_FILE = MyPNL/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "my PNL";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -570,7 +594,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = live.BetaTestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = live.MyPNL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
