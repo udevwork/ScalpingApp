@@ -1,10 +1,3 @@
-//
-//  DataLodingStageManager.swift
-//  BetaTestApp
-//
-//  Created by Denis Kotelnikov on 18.09.2022.
-//
-
 import Foundation
 import Combine
 

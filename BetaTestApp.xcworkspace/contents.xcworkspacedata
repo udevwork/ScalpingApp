@@ -5,7 +5,7 @@
       location = "group:AppUI/Binance.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:BetaTestApp.xcodeproj">
+      location = "group:/Users/denis/XcodeProjects/ScalpingApp/MyPNLiOS.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

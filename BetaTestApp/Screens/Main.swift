@@ -1,10 +1,3 @@
-//
-//  BetaTestAppApp.swift
-//  BetaTestApp
-//
-//  Created by Denis Kotelnikov on 12.08.2022.
-//
-
 import SwiftUI
 import Binance
 

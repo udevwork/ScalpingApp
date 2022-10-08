@@ -49,7 +49,7 @@
 /* Begin PBXFileReference section */
 		66BED941BFD29D4B988DBD46 /* Pods-BetaTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetaTestApp.release.xcconfig"; path = "Target Support Files/Pods-BetaTestApp/Pods-BetaTestApp.release.xcconfig"; sourceTree = "<group>"; };
 		7B8D1C10B3FC973F6EC110F8 /* Pods_BetaTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BetaTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9200BF4B28A6C9E000A8832A /* BetaTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetaTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9200BF4B28A6C9E000A8832A /* MyPNL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPNL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9200BF4E28A6C9E000A8832A /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		9200BF5028A6C9E000A8832A /* ChartTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTerminalView.swift; sourceTree = "<group>"; };
 		9200BF5228A6C9E200A8832A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 		9200BF4C28A6C9E000A8832A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9200BF4B28A6C9E000A8832A /* BetaTestApp.app */,
+				9200BF4B28A6C9E000A8832A /* MyPNL.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -245,9 +245,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9200BF4A28A6C9E000A8832A /* BetaTestApp */ = {
+		9200BF4A28A6C9E000A8832A /* MyPNL */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9200BF5928A6C9E200A8832A /* Build configuration list for PBXNativeTarget "BetaTestApp" */;
+			buildConfigurationList = 9200BF5928A6C9E200A8832A /* Build configuration list for PBXNativeTarget "MyPNL" */;
 			buildPhases = (
 				45CF57D4E6AF60015FF30FBB /* [CP] Check Pods Manifest.lock */,
 				9200BF4728A6C9E000A8832A /* Sources */,
@@ -259,9 +259,9 @@
 			);
 			dependencies = (
 			);
-			name = BetaTestApp;
+			name = MyPNL;
 			productName = BetaTestApp;
-			productReference = 9200BF4B28A6C9E000A8832A /* BetaTestApp.app */;
+			productReference = 9200BF4B28A6C9E000A8832A /* MyPNL.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -279,7 +279,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9200BF4628A6C9E000A8832A /* Build configuration list for PBXProject "BetaTestApp" */;
+			buildConfigurationList = 9200BF4628A6C9E000A8832A /* Build configuration list for PBXProject "MyPNLiOS" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -292,7 +292,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9200BF4A28A6C9E000A8832A /* BetaTestApp */,
+				9200BF4A28A6C9E000A8832A /* MyPNL */,
 			);
 		};
 /* End PBXProject section */
@@ -584,7 +584,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9200BF4628A6C9E000A8832A /* Build configuration list for PBXProject "BetaTestApp" */ = {
+		9200BF4628A6C9E000A8832A /* Build configuration list for PBXProject "MyPNLiOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9200BF5728A6C9E200A8832A /* Debug */,
@@ -593,7 +593,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9200BF5928A6C9E200A8832A /* Build configuration list for PBXNativeTarget "BetaTestApp" */ = {
+		9200BF5928A6C9E200A8832A /* Build configuration list for PBXNativeTarget "MyPNL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9200BF5A28A6C9E200A8832A /* Debug */,
