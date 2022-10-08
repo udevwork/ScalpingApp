@@ -9,10 +9,15 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>Binance.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>BinanceResponce.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>4</integer>
 		</dict>
 	</dict>
 </dict>

@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import BinanceResponce
+import Binance
 import AlertToast
 
 class DashboardViewModel: ObservableObject  {

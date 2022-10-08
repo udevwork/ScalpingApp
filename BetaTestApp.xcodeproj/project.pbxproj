@@ -13,6 +13,7 @@
 		9200BF5328A6C9E200A8832A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9200BF5228A6C9E200A8832A /* Assets.xcassets */; };
 		9200BF5628A6C9E200A8832A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9200BF5528A6C9E200A8832A /* Preview Assets.xcassets */; };
 		924B366128B4AA7D00DC2C74 /* Extantions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B366028B4AA7D00DC2C74 /* Extantions.swift */; };
+		9269C81D28F1A85400BAF494 /* Binance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9269C81C28F1A85400BAF494 /* Binance.framework */; };
 		926CE6DB28CB13F500E417DF /* Nunito-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 926CE6CD28CB13F500E417DF /* Nunito-ExtraBoldItalic.ttf */; };
 		926CE6DC28CB13F500E417DF /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 926CE6CE28CB13F500E417DF /* Nunito-ExtraBold.ttf */; };
 		926CE6DD28CB13F500E417DF /* Nunito-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 926CE6CF28CB13F500E417DF /* Nunito-ExtraLightItalic.ttf */; };
@@ -43,23 +44,7 @@
 		92F8BBFE28CC786700CC4852 /* CryptoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBFD28CC786700CC4852 /* CryptoIcon.swift */; };
 		92F8BC0028CC9C0A00CC4852 /* PositionListExtraItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBFF28CC9C0A00CC4852 /* PositionListExtraItem.swift */; };
 		92F8BC0228CC9C9200CC4852 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC0128CC9C9200CC4852 /* MenuItem.swift */; };
-		92F8BC4028CCBD3100CC4852 /* BinanceResponce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F8BC3F28CCBD3100CC4852 /* BinanceResponce.framework */; };
-		92F8BC4128CCBD3100CC4852 /* BinanceResponce.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92F8BC3F28CCBD3100CC4852 /* BinanceResponce.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		92F8BC4228CCBD3100CC4852 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				92F8BC4128CCBD3100CC4852 /* BinanceResponce.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		66BED941BFD29D4B988DBD46 /* Pods-BetaTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetaTestApp.release.xcconfig"; path = "Target Support Files/Pods-BetaTestApp/Pods-BetaTestApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -70,6 +55,7 @@
 		9200BF5228A6C9E200A8832A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9200BF5528A6C9E200A8832A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		924B366028B4AA7D00DC2C74 /* Extantions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extantions.swift; sourceTree = "<group>"; };
+		9269C81C28F1A85400BAF494 /* Binance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Binance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		926CE6CD28CB13F500E417DF /* Nunito-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		926CE6CE28CB13F500E417DF /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
 		926CE6CF28CB13F500E417DF /* Nunito-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -93,6 +79,7 @@
 		9280934328C1018700BC75B7 /* SymbolBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolBrowser.swift; sourceTree = "<group>"; };
 		9280934628C1D9A800BC75B7 /* PositionListSimpleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionListSimpleItem.swift; sourceTree = "<group>"; };
 		928CA63F28C31E170044473B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		92C2C25928F1A7D4009BF063 /* BinanceResponce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BinanceResponce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C7ADAB28B52EC5009727A7 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		92E619DC28BF390D002B2652 /* CodableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableHelper.swift; sourceTree = "<group>"; };
 		92F7C77028D7215D00BACA0F /* DataLodingStageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLodingStageManager.swift; sourceTree = "<group>"; };
@@ -110,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92F8BC4028CCBD3100CC4852 /* BinanceResponce.framework in Frameworks */,
+				9269C81D28F1A85400BAF494 /* Binance.framework in Frameworks */,
 				72320F4BEABE521494ED2422 /* Pods_BetaTestApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,6 +108,8 @@
 		44C8CD2D4D45B88A3F796675 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9269C81C28F1A85400BAF494 /* Binance.framework */,
+				92C2C25928F1A7D4009BF063 /* BinanceResponce.framework */,
 				92F8BC3F28CCBD3100CC4852 /* BinanceResponce.framework */,
 				7B8D1C10B3FC973F6EC110F8 /* Pods_BetaTestApp.framework */,
 			);
@@ -265,7 +254,6 @@
 				9200BF4828A6C9E000A8832A /* Frameworks */,
 				9200BF4928A6C9E000A8832A /* Resources */,
 				3669BEBC52055DCC350A7A88 /* [CP] Embed Pods Frameworks */,
-				92F8BC4228CCBD3100CC4852 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

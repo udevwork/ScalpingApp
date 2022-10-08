@@ -1,5 +1,5 @@
 import SwiftUI
-import BinanceResponce
+import Binance
 
 struct PositionListExtraItem: View {
     

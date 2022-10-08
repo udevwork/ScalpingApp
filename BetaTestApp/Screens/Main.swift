@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import BinanceResponce
+import Binance
 
 @main
 struct Main: App {

@@ -30,7 +30,7 @@
 		923BEDD928D606A4001DD0CA /* PositionUpdateStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionUpdateStream.swift; sourceTree = "<group>"; };
 		927D2AFF28CDC1820090F30D /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		927D2B0528CE169B0090F30D /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
-		92F8BC2228CCA3DB00CC4852 /* BinanceResponce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BinanceResponce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92F8BC2228CCA3DB00CC4852 /* Binance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Binance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F8BC3828CCB1C500CC4852 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		92F8BC4328CCBE0B00CC4852 /* PositionRisk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionRisk.swift; sourceTree = "<group>"; };
 		92F8BC4428CCBE0B00CC4852 /* MarketMiniTicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketMiniTicker.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 		92F8BC2328CCA3DB00CC4852 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				92F8BC2228CCA3DB00CC4852 /* BinanceResponce.framework */,
+				92F8BC2228CCA3DB00CC4852 /* Binance.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,9 +117,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		92F8BC2128CCA3DB00CC4852 /* BinanceResponce */ = {
+		92F8BC2128CCA3DB00CC4852 /* Binance */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 92F8BC2928CCA3DB00CC4852 /* Build configuration list for PBXNativeTarget "BinanceResponce" */;
+			buildConfigurationList = 92F8BC2928CCA3DB00CC4852 /* Build configuration list for PBXNativeTarget "Binance" */;
 			buildPhases = (
 				92F8BC1D28CCA3DB00CC4852 /* Headers */,
 				92F8BC1E28CCA3DB00CC4852 /* Sources */,
@@ -130,12 +130,12 @@
 			);
 			dependencies = (
 			);
-			name = BinanceResponce;
+			name = Binance;
 			packageProductDependencies = (
 				92FF796428F19483008E9B4A /* Starscream */,
 			);
 			productName = AppUI;
-			productReference = 92F8BC2228CCA3DB00CC4852 /* BinanceResponce.framework */;
+			productReference = 92F8BC2228CCA3DB00CC4852 /* Binance.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -169,7 +169,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				92F8BC2128CCA3DB00CC4852 /* BinanceResponce */,
+				92F8BC2128CCA3DB00CC4852 /* Binance */,
 			);
 		};
 /* End PBXProject section */
@@ -351,7 +351,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = live.AppUI;
+				PRODUCT_BUNDLE_IDENTIFIER = live.Binance;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
@@ -391,7 +391,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = live.AppUI;
+				PRODUCT_BUNDLE_IDENTIFIER = live.Binance;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
@@ -416,7 +416,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		92F8BC2928CCA3DB00CC4852 /* Build configuration list for PBXNativeTarget "BinanceResponce" */ = {
+		92F8BC2928CCA3DB00CC4852 /* Build configuration list for PBXNativeTarget "Binance" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				92F8BC2A28CCA3DB00CC4852 /* Debug */,

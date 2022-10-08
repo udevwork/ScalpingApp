@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 import AlertToast
-import BinanceResponce
+import Binance
 import SwiftyUserDefaults
 
 public class ChartTerminalViewModel: ObservableObject {

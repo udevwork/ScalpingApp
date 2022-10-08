@@ -1,5 +1,5 @@
 import Foundation
-import BinanceResponce
+import Binance
 
 class Finance {
     

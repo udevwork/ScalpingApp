@@ -1,6 +1,6 @@
 import SwiftUI
 import Charts
-import BinanceResponce
+import Binance
 
 struct ChartView: View {
     

@@ -1,5 +1,5 @@
 import SwiftUI
-import BinanceResponce
+import Binance
 import SwiftyUserDefaults
 
 class SettingsViewModel: ObservableObject  {
