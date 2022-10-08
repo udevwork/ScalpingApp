@@ -78,12 +78,14 @@ public class ChartTerminalViewModel: ObservableObject {
     // Fetch candles data from
     private func fetchCandles(){
         if let request = Web.shared.request(.fapi ,.get, .futures, .v1, "klines", [.init(name: "symbol", value: symbol.uppercased()), .init(name: "interval", value: timeframe),.init(name: "limit", value: "20")], useSignature: false) {
-            Web.shared.REST(request, [Candle].self) { [weak self] responce in
+            Web.shared.REST(request, [Candle].self,  completion: { [weak self] responce in
                 responce.forEach { self?.setMaxMin(candle: $0) }
                 self?.candles = responce
                 self?.isChartLoading = false
                 self?.stageManager.finishStep()
-            }
+            }, onError: { [weak self] error in
+                self?.stageManager.finishWithError()
+            })
         }
     }
     
@@ -91,13 +93,15 @@ public class ChartTerminalViewModel: ObservableObject {
     private func fetchPosition(){
         positionUpdating = true
         if let request = Web.shared.request(.fapi ,.get, .futures, .v2, "positionRisk", nil) {
-            Web.shared.REST(request, [PositionRisk].self) { [weak self] responce in
+            Web.shared.REST(request, [PositionRisk].self, completion: { [weak self] responce in
                 let newPosition = responce.first { pos in
                     pos.symbol == self?.symbol
                 }
                 self?.position = newPosition?.positionAmt == 0 ? nil : newPosition
                 self?.positionUpdating = false
-            }
+            }, onError: { error in
+                
+            })
         }
     }
     
@@ -165,7 +169,7 @@ public class ChartTerminalViewModel: ObservableObject {
             Web.shared.REST(request, NewOrder.self, completion: { [weak self] responce in
                 print("SELL:", responce.symbol, "Completed")
                 self?.orderProcessing = false
-            }, iferror: { [weak self] err in
+            }, onError: { [weak self] err in
                 self?.orderProcessing = false
                 self?.errorEventText = err.msg
                 self?.errorEvent = true

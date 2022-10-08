@@ -8,12 +8,15 @@ struct MenuItem<Destination>: View where Destination: View  {
     @ViewBuilder var destination: () -> Destination
     
     var body: some View {
-        NavigationLink(destination: destination) {
-            Label {
-                Text(menuName).articleBoldFont()
-            } icon: {
-                Icon(iconName: iconName)
+        HStack {
+            NavigationLink(destination: destination) {
+                HStack(spacing: 15) {
+                    Icon(iconName: iconName)
+                    Text(menuName).articleBoldFont()
+                }
+
             }
+            Spacer()
         }
     }
     

@@ -1,16 +1,21 @@
 import Foundation
 public struct ServerError: Decodable {
     
-    public let code: Double
+    public let code: Int
     public let msg: String
     
-    public init(from decoder: Decoder) throws {
-        var values = try decoder.unkeyedContainer()
-        self.code = try values.decode(Double.self)
-        self.msg = try values.decode(String.self)
+    enum CodingKeys: String, CodingKey {
+        case code = "code"
+        case msg = "msg"
     }
     
-    public init(code: Double, msg: String) {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.code = try container.decode(Int.self, forKey: .code)
+        self.msg = try container.decode(String.self, forKey: .msg)
+    }
+    
+    public init(code: Int, msg: String) {
         self.code = code
         self.msg = msg
     }

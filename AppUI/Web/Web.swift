@@ -23,7 +23,7 @@ public class Web {
     
     public func testConnection(completion: @escaping (ServerError?)->()){
         if let request = self.request(.fapi, .get, .futures, .v1, "ping", useTimestamp: false ,useSignature: false) {
-            REST(request, EmptyResponse.self, completion: { _ in completion(nil) }, iferror: { error in completion(error) })
+            REST(request, EmptyResponse.self, completion: { _ in completion(nil) }, onError: { error in completion(error) })
         } else {
             completion(ServerError(code: 0, msg: "No api keys"))
         }
@@ -84,7 +84,7 @@ public class Web {
         }
     }
     
-    public func REST<T: Decodable>(_ req: URLRequest,_ type: T.Type, completion: @escaping (T)->(), iferror: ((ServerError)->())? = nil) {
+    public func REST<T: Decodable>(_ req: URLRequest,_ type: T.Type, completion: @escaping (T)->(), onError: @escaping ((ServerError)->())) {
         DispatchQueue.global(qos: .background).async {
             let session = URLSession.shared
             let task = session.dataTask(with: req) { (data, response, error) in
@@ -102,21 +102,23 @@ public class Web {
                     print("ERROR: ", error)
                     
                 } else if let data = data {
+                    
                     if self.debug {
                         let dataAsString = String(data: data, encoding: .utf8) ?? "_"
                         print("------- Respone for \(String(describing: req.url?.absoluteURL)):", "\nData: ", data, "\nString: ", dataAsString,"\n----------")
                     }
-                    do {
-                        let error = try decode(ServerError.self, from: data)
-                        print("Error \(String(describing: req.url?.absoluteString)) :  ", error.msg)
-                        if error.msg.isEmpty == false {
+                    
+                    // Parse error
+                    if let decodedError = try? decode(ServerError.self, from: data) {
+                        print("Error \(String(describing: req.url?.absoluteString)) :  ", decodedError.msg)
+                        if decodedError.msg.isEmpty == false {
                             DispatchQueue.main.async {
-                                iferror?(error)
+                                onError(decodedError)
                             }
                         }
                         return
-                    } catch {
-                        
+                    } else {
+                        print("Cannot decode data to ServerError", " =(")
                     }
                     
                     if let decoded = try? decode(T.self, from: data) {
@@ -126,7 +128,7 @@ public class Web {
                     } else {
                         print("Cannot decode data to ", T.self, " =(")
                         DispatchQueue.main.async {
-                            iferror?(ServerError(code: 0, msg: "Cannot decode data"))
+                            onError(ServerError(code: 0, msg: "Cannot decode data"))
                         }
                     }
                     
