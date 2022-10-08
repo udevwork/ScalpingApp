@@ -5,20 +5,18 @@ import AlertToast
 
 class DashboardViewModel: ObservableObject  {
     
+    private var subscribers: [AnyCancellable] = []
+    public var isSceneActive = true
+    public var stageManager = DataLodingStageManager(stageCount: 5)
+    
     @Published var positions: [String:PositionRisk] = [:]
     @Published var allPositions: [PositionRisk] = []
     @Published var error: String = ""
-    private var subscribers: [AnyCancellable] = []
-    public var isSceneActive = true
     @Published public var isLoading: Bool = false
-
-    public var stageManager = DataLodingStageManager(stageCount: 5)
     
     init(){
         fetchData()
-        
         stageManager.$inProgress.assign(to: &$isLoading)
-        
     }
     
     public func fetchData(){
@@ -117,7 +115,7 @@ class DashboardViewModel: ObservableObject  {
     
     private func subscribeToUserStream(){
         if let request = Web.shared.request(.fapi ,.post, .futures, .v1, "listenKey", nil, useTimestamp: false, useSignature: false) {
-            Web.shared.REST(request, ListenKey.self) { [weak self] responce in
+            Web.shared.REST(request, ListenKey.self) { responce in
                 print("listenKey", responce.listenKey)
                 Web.shared.subscribe(.futuresSocket, to: responce.listenKey, id: 1)
             }

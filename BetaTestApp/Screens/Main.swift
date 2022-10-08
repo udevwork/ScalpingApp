@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import BinanceResponce
 
 @main
 struct Main: App {
@@ -32,8 +33,6 @@ struct AppView: View {
             NavigationStack {
                 DashboardView().navigationTitle("Dashboard")
             }
-            .cornerRadius(30)
-            .padding(EdgeInsets(top: -60, leading: 0, bottom: 0, trailing: 0))
     }
 }
 

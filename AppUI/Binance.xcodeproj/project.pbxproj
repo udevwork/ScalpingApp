@@ -17,6 +17,12 @@
 		92F8BC4C28CCBE0C00CC4852 /* Candle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC4628CCBE0C00CC4852 /* Candle.swift */; };
 		92F8BC4D28CCBE0C00CC4852 /* CandleStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC4728CCBE0C00CC4852 /* CandleStream.swift */; };
 		92F8BC4E28CCBE0C00CC4852 /* SocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC4828CCBE0C00CC4852 /* SocketResponse.swift */; };
+		92FF795428F18FAA008E9B4A /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FF795328F18FAA008E9B4A /* Web.swift */; };
+		92FF796528F19483008E9B4A /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 92FF796428F19483008E9B4A /* Starscream */; };
+		92FF796728F194FF008E9B4A /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FF796628F194FF008E9B4A /* CodableHelper.swift */; };
+		92FF796928F1960D008E9B4A /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FF796828F1960D008E9B4A /* ServerError.swift */; };
+		92FF796B28F19B7B008E9B4A /* Web+Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FF796A28F19B7B008E9B4A /* Web+Enums.swift */; };
+		92FF796D28F19B9F008E9B4A /* Web+Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FF796C28F19B9F008E9B4A /* Web+Socket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +38,11 @@
 		92F8BC4628CCBE0C00CC4852 /* Candle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Candle.swift; sourceTree = "<group>"; };
 		92F8BC4728CCBE0C00CC4852 /* CandleStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandleStream.swift; sourceTree = "<group>"; };
 		92F8BC4828CCBE0C00CC4852 /* SocketResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketResponse.swift; sourceTree = "<group>"; };
+		92FF795328F18FAA008E9B4A /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
+		92FF796628F194FF008E9B4A /* CodableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableHelper.swift; sourceTree = "<group>"; };
+		92FF796828F1960D008E9B4A /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
+		92FF796A28F19B7B008E9B4A /* Web+Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web+Enums.swift"; sourceTree = "<group>"; };
+		92FF796C28F19B9F008E9B4A /* Web+Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Web+Socket.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92FF796528F19483008E9B4A /* Starscream in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +60,8 @@
 		92F8BC1828CCA3DB00CC4852 = {
 			isa = PBXGroup;
 			children = (
+				92FF796628F194FF008E9B4A /* CodableHelper.swift */,
+				92FF795228F18F79008E9B4A /* Web */,
 				92F8BC3828CCB1C500CC4852 /* README.md */,
 				92F8BC2428CCA3DB00CC4852 /* Source */,
 				92F8BC2328CCA3DB00CC4852 /* Products */,
@@ -75,8 +89,19 @@
 				927D2B0528CE169B0090F30D /* EmptyResponse.swift */,
 				923BEDD728D5FF03001DD0CA /* NewOrder.swift */,
 				923BEDD928D606A4001DD0CA /* PositionUpdateStream.swift */,
+				92FF796828F1960D008E9B4A /* ServerError.swift */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		92FF795228F18F79008E9B4A /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				92FF795328F18FAA008E9B4A /* Web.swift */,
+				92FF796A28F19B7B008E9B4A /* Web+Enums.swift */,
+				92FF796C28F19B9F008E9B4A /* Web+Socket.swift */,
+			);
+			path = Web;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,6 +131,9 @@
 			dependencies = (
 			);
 			name = BinanceResponce;
+			packageProductDependencies = (
+				92FF796428F19483008E9B4A /* Starscream */,
+			);
 			productName = AppUI;
 			productReference = 92F8BC2228CCA3DB00CC4852 /* BinanceResponce.framework */;
 			productType = "com.apple.product-type.framework";
@@ -125,7 +153,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 92F8BC1C28CCA3DB00CC4852 /* Build configuration list for PBXProject "BinanceResponce" */;
+			buildConfigurationList = 92F8BC1C28CCA3DB00CC4852 /* Build configuration list for PBXProject "Binance" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -134,6 +162,9 @@
 				Base,
 			);
 			mainGroup = 92F8BC1828CCA3DB00CC4852;
+			packageReferences = (
+				92FF796328F19483008E9B4A /* XCRemoteSwiftPackageReference "Starscream" */,
+			);
 			productRefGroup = 92F8BC2328CCA3DB00CC4852 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -161,13 +192,18 @@
 				92F8BC4B28CCBE0C00CC4852 /* ListenKey.swift in Sources */,
 				923BEDDA28D606A4001DD0CA /* PositionUpdateStream.swift in Sources */,
 				923BEDD828D5FF03001DD0CA /* NewOrder.swift in Sources */,
+				92FF796D28F19B9F008E9B4A /* Web+Socket.swift in Sources */,
 				92F8BC4A28CCBE0C00CC4852 /* MarketMiniTicker.swift in Sources */,
+				92FF796728F194FF008E9B4A /* CodableHelper.swift in Sources */,
+				92FF796B28F19B7B008E9B4A /* Web+Enums.swift in Sources */,
 				927D2B0628CE169B0090F30D /* EmptyResponse.swift in Sources */,
 				92F8BC4C28CCBE0C00CC4852 /* Candle.swift in Sources */,
 				92F8BC4D28CCBE0C00CC4852 /* CandleStream.swift in Sources */,
 				92F8BC4928CCBE0C00CC4852 /* PositionRisk.swift in Sources */,
+				92FF796928F1960D008E9B4A /* ServerError.swift in Sources */,
 				927D2B0028CDC1820090F30D /* Balance.swift in Sources */,
 				92F8BC4E28CCBE0C00CC4852 /* SocketResponse.swift in Sources */,
+				92FF795428F18FAA008E9B4A /* Web.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +328,7 @@
 		92F8BC2A28CCA3DB00CC4852 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -319,7 +355,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -330,7 +368,7 @@
 		92F8BC2B28CCA3DB00CC4852 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -357,7 +395,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -367,7 +407,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		92F8BC1C28CCA3DB00CC4852 /* Build configuration list for PBXProject "BinanceResponce" */ = {
+		92F8BC1C28CCA3DB00CC4852 /* Build configuration list for PBXProject "Binance" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				92F8BC2728CCA3DB00CC4852 /* Debug */,
@@ -386,6 +426,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		92FF796328F19483008E9B4A /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		92FF796428F19483008E9B4A /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92FF796328F19483008E9B4A /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 92F8BC1928CCA3DB00CC4852 /* Project object */;
 }

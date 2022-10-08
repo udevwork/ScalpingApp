@@ -36,7 +36,6 @@
 		9280934728C1D9A800BC75B7 /* PositionListSimpleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9280934628C1D9A800BC75B7 /* PositionListSimpleItem.swift */; };
 		928CA64028C31E180044473B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928CA63F28C31E170044473B /* SettingsView.swift */; };
 		92C7ADAC28B52EC5009727A7 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C7ADAB28B52EC5009727A7 /* DashboardView.swift */; };
-		92E0B72028B22CF500AB4C77 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E0B71F28B22CF500AB4C77 /* Web.swift */; };
 		92E619DD28BF390D002B2652 /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E619DC28BF390D002B2652 /* CodableHelper.swift */; };
 		92F7C77128D7215D00BACA0F /* DataLodingStageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F7C77028D7215D00BACA0F /* DataLodingStageManager.swift */; };
 		92F8BBFA28CC6DB300CC4852 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBF928CC6DB300CC4852 /* ChartView.swift */; };
@@ -95,7 +94,6 @@
 		9280934628C1D9A800BC75B7 /* PositionListSimpleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionListSimpleItem.swift; sourceTree = "<group>"; };
 		928CA63F28C31E170044473B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		92C7ADAB28B52EC5009727A7 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		92E0B71F28B22CF500AB4C77 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		92E619DC28BF390D002B2652 /* CodableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableHelper.swift; sourceTree = "<group>"; };
 		92F7C77028D7215D00BACA0F /* DataLodingStageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLodingStageManager.swift; sourceTree = "<group>"; };
 		92F8BBF928CC6DB300CC4852 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 		92C7ADB928B5F074009727A7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				92E0B71F28B22CF500AB4C77 /* Web.swift */,
 				924B366028B4AA7D00DC2C74 /* Extantions.swift */,
 				92E619DC28BF390D002B2652 /* CodableHelper.swift */,
 				9280933E28C0F78400BC75B7 /* Finance.swift */,
@@ -386,7 +383,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9280934728C1D9A800BC75B7 /* PositionListSimpleItem.swift in Sources */,
-				92E0B72028B22CF500AB4C77 /* Web.swift in Sources */,
 				9280933F28C0F78400BC75B7 /* Finance.swift in Sources */,
 				928CA64028C31E180044473B /* SettingsView.swift in Sources */,
 				92F8BBFC28CC700100CC4852 /* TimeFramePicker.swift in Sources */,
@@ -538,9 +534,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BetaTestApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "my PNL";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -549,6 +548,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = live.BetaTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -568,9 +570,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BetaTestApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "my PNL";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -579,6 +584,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = live.BetaTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

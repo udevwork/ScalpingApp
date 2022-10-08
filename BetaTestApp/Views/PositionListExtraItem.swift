@@ -2,6 +2,7 @@ import SwiftUI
 import BinanceResponce
 
 struct PositionListExtraItem: View {
+    
     var position: PositionRisk
     
     var body: some View {

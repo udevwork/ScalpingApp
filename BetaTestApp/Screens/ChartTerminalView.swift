@@ -1,54 +1,49 @@
 import SwiftUI
 import Combine
 import AlertToast
-import SwiftyUserDefaults
 import BinanceResponce
+import SwiftyUserDefaults
 
-class ChartTerminalViewModel: ObservableObject {
+public class ChartTerminalViewModel: ObservableObject {
     
-    static var min:Double = 0.0
-    static var max:Double = 0.0
+    // Static
+    public static var min:Double = 0.0
+    public static var max:Double = 0.0
     
+    // Private variables
+    private var lastRecivedStreamCandle: CandleStream? = nil
+    private let socketID: Int = 10
+    private var subscribers: [AnyCancellable] = []
+    private var timeframe = "1m"
+    private var isChartLoading: Bool = false
     
-    var lastRecivedStreamCandle: CandleStream? = nil
+    // Public variables
+    public var symbol: String
     
+    // Published
     @Published var candles: [Candle] = []
     @Published var price: Double = 0.0
     @Published var pnl: Double = 0.0
-    
-    private let socketID: Int = 10
-    
-    private var subscribers: [AnyCancellable] = []
-    
-    public var symbol: String
     @Published public var position: PositionRisk?
-    @Published var positionAmount: String = "1.0"
-    
-    var timeframe = "1m"
-    
-    var isChartLoading: Bool = false
+    @Published var positionAmount: Double = 10.0
     @Published public var stageManager = DataLodingStageManager(stageCount: 2)
     @Published public var orderProcessing: Bool = false
     @Published public var positionUpdating: Bool = false
     @Published public var errorEvent: Bool = false
     @Published public var errorEventText: String = "Fail"
     
+    
     init(symbol: String, position: PositionRisk?) {
         self.symbol = symbol
         self.position = position
+        self.price = position?.markPrice ?? 0.0
+        self.pnl = position?.unRealizedProfit ?? 0.0
         
-        price = position?.markPrice ?? 0.0
-        pnl = position?.unRealizedProfit ?? 0.0
+        DefaultsKeys.saveOpened(symbol)
         
-        if !Defaults.lastSymbolSearch.contains(symbol){
-            if Defaults.lastSymbolSearch.count >= 5 {
-                Defaults.lastSymbolSearch.removeLast()
-            }
-            Defaults.lastSymbolSearch.insert(symbol, at: 0)
-        }
     }
     
-    
+    // States logic
     public func load() {
         isChartLoading = true
         stageManager.start()
@@ -80,6 +75,7 @@ class ChartTerminalViewModel: ObservableObject {
         })
     }
     
+    // Fetch candles data from
     private func fetchCandles(){
         if let request = Web.shared.request(.fapi ,.get, .futures, .v1, "klines", [.init(name: "symbol", value: symbol.uppercased()), .init(name: "interval", value: timeframe),.init(name: "limit", value: "20")], useSignature: false) {
             Web.shared.REST(request, [Candle].self) { [weak self] responce in
@@ -155,17 +151,14 @@ class ChartTerminalViewModel: ObservableObject {
         self.price = streamCandle.data.close
     }
     
-    public func sell(){
-   
+    private func order(_ quantity: String, side: PositionSide){
         orderProcessing = true
-
-        let quantity: String = dec((Double(positionAmount) ?? 0)/price)
+        let side: String = side == .Long ? "BUY" : "SELL"
         
         let params: [URLQueryItem] = [.init(name: "symbol", value: self.symbol),
-                                      .init(name: "side", value: "SELL"),
+                                      .init(name: "side", value: side),
                                       .init(name: "type", value: "MARKET"),
                                       .init(name: "quantity", value: quantity)]
-        
         
         if let request = Web.shared.request(.fapi, .post, .futures, .v1, "order", params, useTimestamp: true, useSignature: true) {
             
@@ -180,38 +173,33 @@ class ChartTerminalViewModel: ObservableObject {
         }
     }
     
-    public func buy(){
-
-        orderProcessing = true
-        let quantity: String = dec((Double(positionAmount) ?? 0)/price)
-        let params: [URLQueryItem] = [.init(name: "symbol", value: self.symbol),
-                                      .init(name: "side", value: "BUY"),
-                                      .init(name: "type", value: "MARKET"),
-                                      .init(name: "quantity", value: quantity)]
-        
-        
-        if let request = Web.shared.request(.fapi, .post, .futures, .v1, "order", params, useTimestamp: true, useSignature: true) {
-            
-            Web.shared.REST(request, NewOrder.self, completion: { [weak self] responce in
-                print("BUY:", responce.symbol, "Completed")
-                self?.orderProcessing = false
-            }, iferror: { [weak self] err in
-                self?.orderProcessing = false
-                self?.errorEventText = err.msg
-                self?.errorEvent = true
-            })
+    public func sell() {
+        let quantity: String = (positionAmount/price).truncate() // in $
+        self.order(quantity, side: .Short)
+    }
+    public func buy() {
+        let quantity: String = (positionAmount/price).truncate() // in $
+        self.order(quantity, side: .Long)
+    }
+    public func close() {
+        guard let position = position else { return }
+        let quantity: String = String(abs(position.positionAmt))
+        if Finance.positionSide(of: position) == .Long {
+            self.order(quantity, side: .Short)
+        } else {
+            self.order(quantity, side: .Long)
+        }
+    }
+    public func revertPosition() {
+        guard let position = position else { return }
+        let quantity: String = String(position.positionAmt*2)
+        if Finance.positionSide(of: position) == .Long {
+            self.order(quantity, side: .Short)
+        } else {
+            self.order(quantity, side: .Long)
         }
     }
 
-    
-    func dec(_ num: Double) -> String {
-        let num = NSDecimalNumber.init(string: "\(num)")
-        let behaviour = NSDecimalNumberHandler(roundingMode:.down, scale: 2, raiseOnExactness: false,  raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
-        let numRounded = num.rounding(accordingToBehavior: behaviour)
-        let result = "\(numRounded)"
-        
-        return result
-    }
     
     func setMaxMin(candle: Candle) {
         if ChartTerminalViewModel.max < candle.high { ChartTerminalViewModel.max = candle.high }
@@ -227,31 +215,17 @@ struct ChartTerminalView: View {
     @State var timeframe = "1m"
     @FocusState private var amountIsFocused: Bool
     
+    let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+    
     var body: some View {
         VStack {
             List {
-                Section {
-                    if let pos = model.position, model.pnl != 0  {
-                        HStack {
-                            Text("PNL ")
-                            Text("\(model.pnl.currency())").foregroundColor(model.pnl > 0 ? .green : .red).bold()
-                            Spacer()
-                            Text("% ")
-                            Text(Finance.calcPriceChangePercentage(currentPrice: model.price, entryPrice: pos.entryPrice) ).foregroundColor(model.pnl > 0 ? .green : .red).bold()
-                        }
-                        HStack {
-                            Text("Side ")
-                            let side = Finance.positionSide(of: pos)
-                            Text(side.rawValue).foregroundColor(side == .Long ? .green : .red).bold()
-                            Spacer()
-                            Text("amt: ")
-                            Text("\(pos.positionAmt)").bold()
-                        }
-                    }
-
-                }
-                Section(header: Text("Chart \(timeframe)")) {
-                    Text(model.price.currency())
+                Section(header: Text("Chart \(timeframe)").lightFont()) {
+                    Text(model.price.currency()).subtitleFont()
                     ZStack {
                         ChartView(candles: model.candles, position: model.position)
                         if model.candles.isEmpty {
@@ -264,25 +238,75 @@ struct ChartTerminalView: View {
                     })
                 }
                 
-                Section(header: Text("Trade")) {
-                    HStack {
+                Section (header: Text("Position").lightFont()) {
+                    if let pos = model.position, model.pnl != 0  {
+                        VStack(alignment:.leading, spacing: 20) {
+                            HStack {
+                                Text("PNL ").articleFont()
+                                Text("\(model.pnl.currency())").foregroundColor(model.pnl > 0 ? .green : .red).articleBoldFont()
+                                Spacer()
+                                Text("% ").articleFont()
+                                Text(Finance.calcPriceChangePercentage(currentPrice: model.price, entryPrice: pos.entryPrice) ).foregroundColor(model.pnl > 0 ? .green : .red).articleBoldFont()
+                            }
+                            HStack {
+                                Text("Side ").articleFont()
+                                let side = Finance.positionSide(of: pos)
+                                Text(side.rawValue).foregroundColor(side == .Long ? .green : .red).articleBoldFont()
+                                Spacer()
+                                Text("amt: ").articleFont()
+                                Text("\(pos.positionAmt)").articleBoldFont()
+                            }
+                        }
+                    }
+
+                }
+                
+                Section(header: Text("Trade").lightFont()) {
+                    VStack(alignment:.leading, spacing: 20) {
+
+                        HStack {
+                            TextField("Amount", value: $model.positionAmount, formatter: formatter)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .keyboardType(UIKeyboardType.decimalPad)
+                                .focused($amountIsFocused)
+                            
+                            Button {
+                                amountIsFocused = false
+                            } label: {
+                                Text("Apply").articleBoldFont()
+                            }
+                        }
                         
-                        TextField("Amount", text: $model.positionAmount).keyboardType(UIKeyboardType.numbersAndPunctuation)
-                            .focused($amountIsFocused)
+                        HStack {
+                            Button {
+                                model.buy()
+                                amountIsFocused = false
+                            } label: {
+                                Text("Buy").articleBoldFont().foregroundColor(Color("BuyColor"))
+                            }.buttonStyle(BorderedButtonStyle())
+                            
+                            Button {
+                                model.sell()
+                                amountIsFocused = false
+                            } label: {
+                                Text("Sell").articleBoldFont().foregroundColor(Color("SellColor"))
+                            }.buttonStyle(BorderedButtonStyle())
+                            
+                            Button {
+                                model.close()
+                                amountIsFocused = false
+                            } label: {
+                                Text("Close").articleBoldFont()
+                            }.buttonStyle(BorderedButtonStyle()).disabled(model.position == nil)
+                            
+                            Button {
+                                model.revertPosition()
+                                amountIsFocused = false
+                            } label: {
+                                Text("Revert").articleBoldFont()
+                            }.buttonStyle(BorderedButtonStyle()).disabled(model.position == nil)
+                        }
                         
-                        Button {
-                            model.buy()
-                            amountIsFocused = false
-                        } label: {
-                            Text("Buy").foregroundColor(Color("BuyColor"))
-                        }.buttonStyle(BorderedButtonStyle())
-                        
-                        Button {
-                            model.sell()
-                            amountIsFocused = false
-                        } label: {
-                            Text("Sell").foregroundColor(Color("SellColor"))
-                        }.buttonStyle(BorderedButtonStyle())
                     }
                 }
 

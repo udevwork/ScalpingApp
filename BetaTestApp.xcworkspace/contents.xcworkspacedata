@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/denis/XcodeProjects/BetaTestApp/AppUI/BinanceResponce.xcodeproj">
+      location = "group:/Users/denis/XcodeProjects/BetaTestApp/AppUI/Binance.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:BetaTestApp.xcodeproj">

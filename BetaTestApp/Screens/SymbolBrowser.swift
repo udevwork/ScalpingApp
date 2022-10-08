@@ -3,8 +3,10 @@ import BinanceResponce
 import SwiftyUserDefaults
 
 class SymbolBrowserViewModel: ObservableObject  {
+    
+    private var def : DefaultsDisposable? = nil
+
     @Published var positions: [PositionRisk] = []
-    var def : DefaultsDisposable? = nil
     @Published var lastOpendCharts: [String] = []
     @Published var searchText = ""
     
@@ -20,7 +22,6 @@ class SymbolBrowserViewModel: ObservableObject  {
                 self?.lastOpendCharts = update.newValue ?? []
             }
         }
-        
     }
     
     public func lastSearchList() -> [PositionRisk]{

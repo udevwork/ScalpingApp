@@ -8,13 +8,12 @@
 import Foundation
 import Combine
 
-class DataLodingStageManager: ObservableObject {
+public class DataLodingStageManager: ObservableObject {
     
-    var totalStageCount: Int
-    var currentStage: Int = 0
-    
-    var completed: Bool = false
-    var completedWithError: Bool = false
+    public var totalStageCount: Int
+    public var currentStage: Int = 0
+    public var completed: Bool = false
+    public var completedWithError: Bool = false
     
     @Published var inProgress: Bool = false
     
@@ -39,7 +38,10 @@ class DataLodingStageManager: ObservableObject {
         
         if self.currentStage == self.totalStageCount{
             self.completed = true
-            self.inProgress = false
+            DispatchQueue.main.async { [weak self] in
+                self?.inProgress = false
+            }
+            
             print("LoadingStageManager: Finished!")
             objectWillChange.send()
         }

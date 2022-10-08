@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct CryptoIcon: View {
+    
     var symbol: String
     
     var body: some View {

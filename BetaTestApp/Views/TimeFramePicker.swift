@@ -1,16 +1,15 @@
 import SwiftUI
 
 struct TimeFramePicker: View {
+    
     var selection: Binding<String>
+    private let timeframes: [String] = ["1m", "5m", "15m", "1d", "1w", "1M"]
     
     var body: some View {
         Picker("Timeframe", selection: selection) {
-            Text("1m").tag("1m")
-            Text("5m").tag("5m")
-            Text("15m").tag("15m")
-            Text("1d").tag("1d")
-            Text("1w").tag("1w")
-            Text("1M").tag("1M")
+            ForEach(timeframes, id: \.self) {
+                Text($0).tag($0)
+            }
         }
     }
 }

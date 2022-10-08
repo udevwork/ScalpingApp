@@ -3,6 +3,7 @@ import Charts
 import BinanceResponce
 
 struct ChartView: View {
+    
     var candles: [Candle]
     var position: PositionRisk?
     
