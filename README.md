@@ -36,7 +36,7 @@ You can open a position, close or expand a position. Buy or sell futures. Viewin
 - [x] Websocket profile and market updates
 - [x] Testnet
 - [ ] Design improvements
-- [ ] Multi-language Support
+- [ ] Multi-language support
 - [ ] Dynamic island support
 - [ ] Widget with PNL
 - [ ] Indicator on chart

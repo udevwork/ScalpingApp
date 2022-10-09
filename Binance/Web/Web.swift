@@ -6,8 +6,8 @@ import Combine
 public class Web {
     
     public static var shared = Web()
-    public let testnet: Bool = true
-    public let debug: Bool = true
+    public var testnet: Bool = true
+    public var debug: Bool = true
     
     internal let scheme:String = "https"
     internal var socket: WebSocket? = nil
@@ -48,9 +48,15 @@ public class Web {
             return nil
         }
         
+        var host = base.rawValue
+        
+        if self.testnet {
+            host = base == .futures ? TestNetBaseAPI.futures.rawValue : TestNetBaseAPI.futuresSocket.rawValue
+        }
+        
         var components = URLComponents()
         components.scheme = self.scheme
-        components.host = base.rawValue
+        components.host = host
         components.path = api.rawValue + v.rawValue + function
         components.queryItems = params ?? []
         

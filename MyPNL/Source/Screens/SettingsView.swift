@@ -7,18 +7,22 @@ class SettingsViewModel: ObservableObject  {
     @Published var username: String = ""
     @Published var api: String = ""
     @Published var secret: String = ""
+    @Published var useTestnet: Bool = false
     
     init() {
         self.username = Defaults.username ?? "trader"
         self.api = Defaults.apiKey ?? ""
         self.secret = Defaults.secretKey ?? ""
+        self.useTestnet = Defaults.useTestnet ?? false
     }
     
     public func save(){
         Defaults.username = self.username
         Defaults.apiKey = self.api
         Defaults.secretKey = self.secret
+        Defaults.useTestnet = self.useTestnet
         Web.shared.setApiKeys(publicKey: self.api, secretKey: self.secret)
+        Web.shared.testnet = Defaults.useTestnet ?? false
     }
     
 }
@@ -38,20 +42,29 @@ struct SettingsView: View {
                 VStack(spacing: 0) {
                     HStack {
                         Icon(iconName: "User_solid")
-                        TextField("Username", text: $model.username)
+                        TextField("Username", text: $model.username).articleFont()
                     }.menuItemSingleStyle()
                 }
                 
                 VStack(spacing: 0) {
                     HStack {
-                        Icon(iconName: "Pen_solid").foregroundColor(.gray)
-                        TextField("API", text: $model.api).foregroundColor(.gray)
+                        Icon(iconName: "Pen_solid")
+                        TextField("API", text: $model.api).foregroundColor(.gray).articleFont()
                     }.menuItemTopStyle()
                     
                     HStack {
                         Icon(iconName: "Pen_solid")
-                        TextField("Secret", text: $model.secret).foregroundColor(.gray)
+                        TextField("Secret", text: $model.secret).foregroundColor(.gray).articleFont()
                     }.menuItemBottomStyle()
+                }
+                
+                VStack(spacing: 0) {
+                    HStack {
+                        Icon(iconName: "Cloud storage_solid")
+                        Text("Testnet").articleFont()
+                        Toggle("", isOn: $model.useTestnet)
+                    }.menuItemSingleStyle()
+                
                 }
                 
                 VStack(spacing: 0) {
@@ -60,7 +73,7 @@ struct SettingsView: View {
                     }, label: {
                         HStack {
                             Icon(iconName: "Trash_solid").foregroundColor(Color.red)
-                            Text("Clear storage").foregroundColor(Color.red)
+                            Text("Clear storage").foregroundColor(Color.red).articleFont()
                             Spacer()
                         }
                     }).alert("Clear storage?", isPresented: $showingClearDBAlert) {

@@ -1,11 +1,13 @@
 import SwiftUI
 import Binance
+import SwiftyUserDefaults
 
 @main
 struct Main: App {
     
     init() {
         Web.shared.setApiKeys(publicKey: User.shared.publicKey, secretKey: User.shared.secretKey)
+        Web.shared.testnet = Defaults.useTestnet ?? false
     }
     
     var body: some Scene {

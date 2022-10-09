@@ -7,7 +7,10 @@ extension DefaultsKeys {
     var username: DefaultsKey<String?> { .init("username") }
     var apiKey: DefaultsKey<String?> { .init("apiKey") }
     var secretKey: DefaultsKey<String?> { .init("secretKey") }
-
+    
+    // Settings
+    var useTestnet: DefaultsKey<Bool?> { .init("useTestnet") }
+    
     // Common data
     var lastSymbolSearch: DefaultsKey<[String]> { .init("lastSymbolSearch", defaultValue: []) }
     

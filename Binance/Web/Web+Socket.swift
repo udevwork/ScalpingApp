@@ -6,7 +6,13 @@ extension Web: WebSocketDelegate {
     public func subscribe( _ api: BaseAPI, to stream: String, id: Int){
         if socket == nil {
             print("Create new stream connection with: ", stream, " ID: ", id)
-            var request = URLRequest(url: URL(string: api.rawValue + stream)!)
+            
+            var host = api.rawValue
+            if self.testnet {
+                host = api == .futures ? TestNetBaseAPI.futures.rawValue : TestNetBaseAPI.futuresSocket.rawValue
+            }
+            
+            var request = URLRequest(url: URL(string: host + stream)!)
             request.timeoutInterval = 2
             socket = WebSocket(request: request)
             socket?.delegate = self

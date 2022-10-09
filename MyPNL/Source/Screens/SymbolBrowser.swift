@@ -51,13 +51,17 @@ struct SymbolBrowser: View {
                 }
             } else {
                 Section("Last search") {
-                    ForEach(model.lastSearchList()) {
-                        PositionListSimpleItem(position: $0)
+                    if model.lastSearchList().count > 0 {
+                        ForEach(model.lastSearchList()) {
+                            PositionListSimpleItem(position: $0)
+                        }
+                    } else {
+                        Text("Try to type \"BTC\"")
                     }
                 }
             }
          
-        }.searchable(text: $model.searchText)
+        }.searchable(text: $model.searchText, placement: .navigationBarDrawer(displayMode: .always))
             .navigationTitle("Open chart")
     }
 }

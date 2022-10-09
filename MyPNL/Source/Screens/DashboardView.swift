@@ -180,24 +180,31 @@ struct DashboardView: View {
                             .menuItemBottomStyle()
                         
                     } else {
-                        Text(User.shared.balance.currency()).subtitleFont()
-                        Section(header: Text("Open positions").lightFont()) {
-                            ForEach(model.openPositionList(), id: \.id) { position in
-                                PositionListExtraItem(position: position)
+                        VStack(spacing: 10) {
+                            HStack {
+                                Spacer()
+                                Text("Balance").subtitleFont()
+                                Text(User.shared.balance.currency()).subtitleFont()
+                                Spacer()
+                            }.menuItemSingleStyle()
+                            
+                            VStack(){
+                                ForEach(model.openPositionList(), id: \.id) { position in
+                                    PositionListExtraItem(position: position).menuItemSingleStyle()
+                                }
                             }
-                        }
-                        
-                        Section(header: Text("Other").lightFont()) {
                             
-                            MenuItem(iconName: "Zoom_solid", menuName: "Open new chart", destination: {
-                                SymbolBrowser(model: SymbolBrowserViewModel(positions: model.allPositions))
+                            VStack(spacing: 0) {
+                                MenuItem(iconName: "Zoom_solid", menuName: "Open new chart", destination: {
+                                    SymbolBrowser(model: SymbolBrowserViewModel(positions: model.allPositions))
+                                }).navigationItemModificatorStyle()
+                                    .menuItemTopStyle()
                                 
-                            })
-                            
-                            MenuItem(iconName: "Settings_solid", menuName: "Settings", destination: {
-                                SettingsView()
-                            })
-                            
+                                MenuItem(iconName: "Settings_solid", menuName: "Settings", destination: {
+                                    SettingsView()
+                                }).navigationItemModificatorStyle()
+                                    .menuItemBottomStyle()
+                            }
                         }
                     }
                 }
