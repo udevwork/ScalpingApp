@@ -31,7 +31,6 @@
 		927D2AFF28CDC1820090F30D /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		927D2B0528CE169B0090F30D /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		92F8BC2228CCA3DB00CC4852 /* Binance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Binance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		92F8BC3828CCB1C500CC4852 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		92F8BC4328CCBE0B00CC4852 /* PositionRisk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionRisk.swift; sourceTree = "<group>"; };
 		92F8BC4428CCBE0B00CC4852 /* MarketMiniTicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketMiniTicker.swift; sourceTree = "<group>"; };
 		92F8BC4528CCBE0B00CC4852 /* ListenKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenKey.swift; sourceTree = "<group>"; };
@@ -61,7 +60,6 @@
 			isa = PBXGroup;
 			children = (
 				92FF795228F18F79008E9B4A /* Web */,
-				92F8BC3828CCB1C500CC4852 /* README.md */,
 				92F8BC2428CCA3DB00CC4852 /* Source */,
 				92F8BC2328CCA3DB00CC4852 /* Products */,
 			);

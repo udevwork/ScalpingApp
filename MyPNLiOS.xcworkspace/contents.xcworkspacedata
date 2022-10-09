@@ -5,9 +5,6 @@
       location = "group:Binance/Binance.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Binance/../README.md">
-   </FileRef>
-   <FileRef
       location = "group:MyPNLiOS.xcodeproj">
    </FileRef>
    <FileRef
