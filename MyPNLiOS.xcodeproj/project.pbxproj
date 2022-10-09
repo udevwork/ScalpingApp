@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		72320F4BEABE521494ED2422 /* Pods_BetaTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B8D1C10B3FC973F6EC110F8 /* Pods_BetaTestApp.framework */; };
 		9200BF4F28A6C9E000A8832A /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9200BF4E28A6C9E000A8832A /* Main.swift */; };
 		9200BF5128A6C9E000A8832A /* ChartTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9200BF5028A6C9E000A8832A /* ChartTerminalView.swift */; };
 		9200BF5328A6C9E200A8832A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9200BF5228A6C9E200A8832A /* Assets.xcassets */; };
@@ -50,6 +49,7 @@
 		92F8BBFE28CC786700CC4852 /* CryptoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBFD28CC786700CC4852 /* CryptoIcon.swift */; };
 		92F8BC0028CC9C0A00CC4852 /* PositionListExtraItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BBFF28CC9C0A00CC4852 /* PositionListExtraItem.swift */; };
 		92F8BC0228CC9C9200CC4852 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC0128CC9C9200CC4852 /* MenuItem.swift */; };
+		B5116667118707A95AEA3F4B /* Pods_MyPNL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6D13D976C22DEF6AD90A4F /* Pods_MyPNL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,8 +67,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5B6D13D976C22DEF6AD90A4F /* Pods_MyPNL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPNL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66BED941BFD29D4B988DBD46 /* Pods-BetaTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetaTestApp.release.xcconfig"; path = "Target Support Files/Pods-BetaTestApp/Pods-BetaTestApp.release.xcconfig"; sourceTree = "<group>"; };
-		7B8D1C10B3FC973F6EC110F8 /* Pods_BetaTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BetaTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9200BF4B28A6C9E000A8832A /* MyPNL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPNL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9200BF4E28A6C9E000A8832A /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		9200BF5028A6C9E000A8832A /* ChartTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTerminalView.swift; sourceTree = "<group>"; };
@@ -115,6 +115,8 @@
 		92F8BC0128CC9C9200CC4852 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		92F8BC3F28CCBD3100CC4852 /* BinanceResponce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BinanceResponce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0A604F82EB472475D9147F7 /* Pods-BetaTestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetaTestApp.debug.xcconfig"; path = "Target Support Files/Pods-BetaTestApp/Pods-BetaTestApp.debug.xcconfig"; sourceTree = "<group>"; };
+		EB00D932ECC94F9A94BDCE87 /* Pods-MyPNL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPNL.debug.xcconfig"; path = "Target Support Files/Pods-MyPNL/Pods-MyPNL.debug.xcconfig"; sourceTree = "<group>"; };
+		FAF1AB09087BD4524C7538E3 /* Pods-MyPNL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPNL.release.xcconfig"; path = "Target Support Files/Pods-MyPNL/Pods-MyPNL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +124,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72320F4BEABE521494ED2422 /* Pods_BetaTestApp.framework in Frameworks */,
 				9269C81F28F1AE5800BAF494 /* Binance.framework in Frameworks */,
+				B5116667118707A95AEA3F4B /* Pods_MyPNL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +138,7 @@
 				9269C81C28F1A85400BAF494 /* Binance.framework */,
 				92C2C25928F1A7D4009BF063 /* BinanceResponce.framework */,
 				92F8BC3F28CCBD3100CC4852 /* BinanceResponce.framework */,
-				7B8D1C10B3FC973F6EC110F8 /* Pods_BetaTestApp.framework */,
+				5B6D13D976C22DEF6AD90A4F /* Pods_MyPNL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -284,6 +286,8 @@
 			children = (
 				B0A604F82EB472475D9147F7 /* Pods-BetaTestApp.debug.xcconfig */,
 				66BED941BFD29D4B988DBD46 /* Pods-BetaTestApp.release.xcconfig */,
+				EB00D932ECC94F9A94BDCE87 /* Pods-MyPNL.debug.xcconfig */,
+				FAF1AB09087BD4524C7538E3 /* Pods-MyPNL.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -377,15 +381,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BetaTestApp/Pods-BetaTestApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-MyPNL/Pods-MyPNL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BetaTestApp/Pods-BetaTestApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-MyPNL/Pods-MyPNL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BetaTestApp/Pods-BetaTestApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyPNL/Pods-MyPNL-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		45CF57D4E6AF60015FF30FBB /* [CP] Check Pods Manifest.lock */ = {
@@ -403,7 +407,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BetaTestApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MyPNL-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -563,7 +567,7 @@
 		};
 		9200BF5A28A6C9E200A8832A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0A604F82EB472475D9147F7 /* Pods-BetaTestApp.debug.xcconfig */;
+			baseConfigurationReference = EB00D932ECC94F9A94BDCE87 /* Pods-MyPNL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -599,7 +603,7 @@
 		};
 		9200BF5B28A6C9E200A8832A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66BED941BFD29D4B988DBD46 /* Pods-BetaTestApp.release.xcconfig */;
+			baseConfigurationReference = FAF1AB09087BD4524C7538E3 /* Pods-MyPNL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
