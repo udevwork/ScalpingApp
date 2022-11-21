@@ -16,7 +16,7 @@ class SettingsViewModel: ObservableObject  {
         self.useTestnet = Defaults.useTestnet ?? false
     }
     
-    public func save(){
+    public func save() {
         Defaults.username = self.username
         Defaults.apiKey = self.api
         Defaults.secretKey = self.secret

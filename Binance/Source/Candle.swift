@@ -1,5 +1,5 @@
 import Foundation
-public struct Candle: Decodable, Identifiable {
+public struct Candle: Decodable, Identifiable, Equatable {
     
     public var id = UUID().uuidString
     

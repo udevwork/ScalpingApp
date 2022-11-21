@@ -56,7 +56,7 @@ struct SymbolBrowser: View {
                             PositionListSimpleItem(position: $0)
                         }
                     } else {
-                        Text("Try to type \"BTC\"")
+                        Text("Try to type \"BTC..\"")
                     }
                 }
             }

@@ -77,7 +77,7 @@ public class ChartTerminalViewModel: ObservableObject {
     
     // Fetch candles data from
     private func fetchCandles(){
-        if let request = Web.shared.request(.fapi ,.get, .futures, .v1, "klines", [.init(name: "symbol", value: symbol.uppercased()), .init(name: "interval", value: timeframe),.init(name: "limit", value: "20")], useSignature: false) {
+        if let request = Web.shared.request(.fapi ,.get, .futures, .v1, "klines", [.init(name: "symbol", value: symbol.uppercased()), .init(name: "interval", value: timeframe),.init(name: "limit", value: "80")], useSignature: false) {
             Web.shared.REST(request, [Candle].self,  completion: { [weak self] responce in
                 responce.forEach { self?.setMaxMin(candle: $0) }
                 self?.candles = responce
