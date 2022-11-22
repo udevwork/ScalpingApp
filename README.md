@@ -40,6 +40,7 @@ You can open a position, close or expand a position. Buy or sell futures. Viewin
 - [ ] Dynamic island support
 - [ ] Widget with PNL
 - [ ] Indicator on chart
+    - [x] ema
 - [ ] Trading tutorials
 
 
