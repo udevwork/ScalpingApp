@@ -1,3 +1,5 @@
+![Scalping app ios](screenshots.png)
+
 ## About The Project
 
 An iOS application that allows you to find out your PNL as quickly as possible and make quick actions with your open positions on the Binance exchange. 
